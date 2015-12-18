@@ -14,16 +14,18 @@ default React.createClass({
     mixins: [PureRenderMixin],
 
     render() {
+        var className = ((this.props.thinking) ? 'thinking': (this.props.checked) ? 'enabled' : 'disabled');
+        var checkClass = ((this.props.thinking) ? 'ion-load-d': (this.props.checked) ? 'ion-checkmark-round' : 'ion-ios-close-empty') 
         return (
             <div style={this.props.style || {}} className={'status '+ ((this.props.type === 'mini') ? 'check' : '')}>
-                <div className="check">
+                <div className={'check ' + className}>
                     <If test={(this.props.type === 'mini')}>
                         <div>
                             <div className="check-rip"/>
                             <div className="check-rip two"/>
                         </div>
                     </If>
-                    <i className="ion-checkmark-round"/>
+                    <i className={checkClass}/>
                 </div>
                 <If test={(this.props.type === 'full')}>
                     <span>{this.props.text}</span>

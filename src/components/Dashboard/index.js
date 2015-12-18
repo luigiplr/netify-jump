@@ -4,8 +4,11 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import Status from './components/status';
 import PC from './components/pc';
 import Settings from './components/settings';
-import Clients from './components/clients';
+import WIFI from './components/wifi';
 
+
+import NetworkStore from '../../stores/networkEngineStore';
+import NetworkActions from '../../actions/networkEngineActions';
 
 export
 default React.createClass({
@@ -14,26 +17,26 @@ default React.createClass({
 
     getInitialState() {
         return {
-
+            online: NetworkStore.getState().online
         };
     },
 
+    componentWillMount() {
+        NetworkStore.listen(this.update);
+    },
+
     componentDidMount() {
-
-
         
     },
 
     componentWillUnmount() {
-
-
-
+        NetworkStore.unlisten(this.update);
     },
 
     update() {
         if (this.isMounted()) {
             this.setState({
-
+                online: NetworkStore.getState().online
             });
         }
     },
@@ -47,7 +50,7 @@ default React.createClass({
 
                 <div className="line vertical" style={{marginTop: '90px', height: '15px',marginBottom: '8px'}}/>
 
-                <Status type="full" checked={true} text="Internet"/>
+                <Status type="full" thinking={(this.state.online === 'checking')? true : false} checked={this.state.online} text="Internet"/>
 
                 <div className="line vertical" style={{marginTop: '9px', height: '15px',marginBottom: '8px'}}/>
 
@@ -65,14 +68,14 @@ default React.createClass({
                 </div>
 
                 <Status type="mini" style={{marginTop: '5px', right: '247px'}} checked={true}/>
-                <Status type="mini" style={{marginTop: '-20px', left: '247px'}} checked={true}/>
+                <Status type="mini" style={{marginTop: '-20px', left: '249px'}} checked={true}/>
 
                 <div className="line vertical" style={{marginTop: '10px', height: '15px', marginBottom: '8px', right: '247px'}}/>
 
                 <div className="line vertical" style={{marginTop: '-22px', height: '15px', marginBottom: '8px', left: '249px'}}/>
                 <Settings />
 
-                <Clients />
+                <WIFI />
 
 
                 <div className="line horizontal right" style={{width: '230px', marginTop: '-135px'}}>

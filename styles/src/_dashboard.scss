@@ -80,6 +80,14 @@
     width: 20px;
 }
 
+.main .status .check.enabled {
+    background-color: #00B20A;
+}
+
+.main .status .check.disabled {
+    background-color: #E81123;
+}
+
 .main .status.check .check-rip {
     height: 22px;
     width: 22px;
@@ -106,7 +114,7 @@
     position: absolute;
     float: left;
     border-radius: 10px;
-    background-color: #00B20A;
+    background-color: transparent;
     color: #fff;
 }
 
@@ -180,4 +188,39 @@
     display: block;
     top: 80px;
     margin: auto;
+}
+
+
+
+
+.main .section .adaptor {
+    position: absolute;
+    width: 100%;
+}
+
+.main .section .adaptor p {
+    color: #8A9DB1;
+    font-size: 14px;
+    width: 0px;
+    position: relative;
+    height: 15px;
+    font-weight: 400;
+}
+
+.main .section .adaptor .sep:first-of-type {
+    margin-bottom: 10px;
+}
+
+.main .section .adaptor .sep {
+    position: relative;
+    width: 100%;
+    height: 0px;
+    margin-bottom: 7px;
+}
+
+.main .section .adaptor span {
+    right: 0;
+    color: #8A9DB1;
+    font-size: 14px;
+    position: absolute;
 }

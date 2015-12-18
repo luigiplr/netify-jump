@@ -6,14 +6,19 @@ import {
 from 'react-router';
 
 import Header from './Header';
-
+import NetworkActions from '../actions/networkEngineActions';
 
 export
 default React.createClass({
 
     mixins: [PureRenderMixin, RouteContext],
 
-	render() {
+
+    componentWillMount() {
+        NetworkActions.checkOnline();
+    },
+
+    render() {
         return (
             <div>
               <Header/>
