@@ -13,12 +13,10 @@ app.on('ready', () => {
     const screenSize = require('screen').getPrimaryDisplay().workAreaSize;
 
     var mainWindow = new BrowserWindow({
-        minWidth: 960,
-        minHeight: 500,
+        minWidth: 950,
+        minHeight: 650,
         width: 960,
         height: screenSize.height * 0.7,
-        'standard-window': true,
-        'auto-hide-menu-bar': true,
         resizable: true,
         title: 'Netify Jump',
         center: true,
