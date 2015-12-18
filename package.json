@@ -19,9 +19,10 @@
   "dependencies": {
     "alt": "^0.17.8",
     "bluebird": "^3.0.6",
-    "history": "^1.16.0",
+    "history": "^1.13.1",
     "is-online": "^5.0.1",
     "lodash": "^3.10.1",
+    "node-hotspot": "0.0.8",
     "node-notifier": "^4.4.0",
     "node-uuid": "^1.4.7",
     "react": "^0.14.3",
