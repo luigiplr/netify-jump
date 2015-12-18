@@ -90,12 +90,12 @@ default React.createClass({
                                     <p>MAC</p>
                                 </div>
                             </If>
+                            <div>
+                                <div className="sep"/>
 
-                            <div className="sep"/>
-
-                            <span>{parseInt(this.state.info['Max number of clients'])}</span>
-                            <p>Max number of clients</p>
-
+                                <span>{parseInt(this.state.info['Max number of clients'])}</span>
+                                <p>Max number of clients</p>
+                            </div>
                             <If test={(this.state.isCompatible !== 'checking' && this.state.isCompatible && Running)}>
                                 <div>
                                     <div className="sep"/>
