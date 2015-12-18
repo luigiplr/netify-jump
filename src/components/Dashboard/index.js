@@ -75,6 +75,14 @@ default React.createClass({
                 <Clients />
 
 
+                <div className="line horizontal right" style={{width: '230px', marginTop: '-135px'}}>
+                    <div className="line curve up right"/>
+                    <div className="line vertical" style={{height: '20px', top: '-40px', left: '134px'}}/>
+                </div>
+
+                <Status type="full" style={{left: '241px', marginTop: '-205px'}} checked={true} text="File Jump"/>
+                <div className="line vertical" style={{height: '15px', top: '-43px', left: '249px'}} />
+                <object width="55px" type="image/svg+xml" data="images/remote_storage_cloud_cloud_storage_folder.svg" className="jump"/>
 
             </div>
         );
