@@ -10,7 +10,7 @@ class networkEngineActions {
 
     constructor() {
         this.generateActions(
-        	'online',
+            'online',
             'enabled',
             'disabled',
 
@@ -20,11 +20,11 @@ class networkEngineActions {
 
     checkOnline() {
         this.dispatch();
-        online((err, status) => {
-            this.actions.online(status);
-        });
-
-
+        _.delay(() => {
+            online((err, status) => {
+                this.actions.online(status);
+            });
+        }, 1000);
     }
 
 }
