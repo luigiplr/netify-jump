@@ -236,3 +236,114 @@
     font-size: 14px;
     position: absolute;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.main .section .settings {
+    position: absolute;
+    width: 100%;
+}
+
+.main .section .settings span {
+    position: absolute;
+    color: #8A9DB1;
+    line-height: 20px;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.main .section .settings p.input {
+    line-height: 20px;
+    height: 20px;
+    color: #8A9DB1;
+    top: 1px;
+    font-size: 14px;
+    position: relative;
+    font-weight: 400;
+    margin-bottom: 1px;
+    box-sizing: border-box;
+}
+
+.main .section .settings input:focus {
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 1px #00B20A;
+}
+
+.main .section .settings input {
+    font-size: 14px;
+    width: 100%;
+    cursor: text;
+    right: 0;
+    border: none;
+    box-sizing: border-box;
+    height: 20px;
+    color: white;
+    background-color: #1D3B49;
+}
+
+.main .section .settings .sep {
+    position: relative;
+    width: 100%;
+    height: 0px;
+    margin-bottom: 10px;
+}
+
+.main .section .settings .sep:first-of-type {
+    margin-bottom: 10px;
+}
+
+.main .section .settings .toggler {
+    margin-left: calc(100% - 45px);
+}
+
+.main .section .settings .lbl {
+    position: relative;
+    display: block;
+    height: 18px;
+    width: 44px;
+    background: #1D3B49;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.main .section .settings .lbl:after {
+    position: absolute;
+    left: -2px;
+    top: -2px;
+    display: block;
+    width: 22px;
+    height: 22px;
+    border-radius: 100px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    content: '';
+    transition: all 0.3s ease;
+}
+
+.main .section .settings .toggle:checked ~ label {
+    background: rgba(0, 178, 10, 0.33);
+}
+
+.main .section .settings .toggle:checked ~ label:after {
+    left: 20px;
+    background: #00B20A;
+    box-shadow: 0 0 10px rgba(0, 178, 10, 0.48);
+}
