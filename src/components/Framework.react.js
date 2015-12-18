@@ -16,6 +16,7 @@ default React.createClass({
 
     componentWillMount() {
         NetworkActions.checkOnline();
+        NetworkActions.updateAdaptors();
     },
 
     render() {
