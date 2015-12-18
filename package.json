@@ -22,7 +22,7 @@
     "history": "^1.13.1",
     "is-online": "^5.0.1",
     "lodash": "^3.10.1",
-    "node-hotspot": "0.0.8",
+    "node-hotspot": "0.0.9",
     "node-notifier": "^4.4.0",
     "node-uuid": "^1.4.7",
     "react": "^0.14.3",

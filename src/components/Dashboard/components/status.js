@@ -15,9 +15,11 @@ default React.createClass({
 
     render() {
         var className = ((this.props.thinking) ? 'thinking': (this.props.checked) ? 'enabled' : 'disabled');
-        var checkClass = ((this.props.thinking) ? 'ion-load-d': (this.props.checked) ? 'ion-checkmark-round' : 'ion-ios-close-empty') 
+        var checkClass = ((this.props.thinking) ? 'ion-load-d': (this.props.checked) ? 'ion-checkmark-round' : 'ion-ios-close-empty');
+        
         return (
             <div style={this.props.style || {}} className={'status '+ ((this.props.type === 'mini') ? 'check' : '')}>
+
                 <div className={'check ' + className}>
                     <If test={(this.props.type === 'mini')}>
                         <div>

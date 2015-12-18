@@ -87,6 +87,11 @@
 .main .status .check.disabled {
     background-color: #E81123;
 }
+.main .status .check.thinking{
+    background-color: rgba(251, 219, 12, 0.82);
+}
+
+
 
 .main .status.check .check-rip {
     height: 22px;
@@ -106,6 +111,14 @@
     border: 1px solid rgba(0, 178, 10, 0.21);
     left: -4px;
     top: -4px;
+}
+
+.main .status.check.thinking .check-rip.two {
+    border: 1px solid rgba(251, 219, 12, 0.21);
+}
+
+.main .status .check.thinking .check-rip,{
+      border: 1px solid rgba(251, 219, 12, 0.55);
 }
 
 .main .status .check {
@@ -201,7 +214,6 @@
 .main .section .adaptor p {
     color: #8A9DB1;
     font-size: 14px;
-    width: 0px;
     position: relative;
     height: 15px;
     font-weight: 400;

@@ -13,6 +13,8 @@ class networkEngineActions {
         this.generateActions(
             'adaptors',
             'isCompatible',
+            'update',
+
 
             'online',
 
@@ -32,16 +34,15 @@ class networkEngineActions {
     }
 
     updateAdaptors() {
-
         nodeHotspot.stats()
             .then(Adaptors => {
-                console.log(Adaptors)
+                this.actions.isCompatible(Adaptors.compatible);
+                this.actions.adaptors(Adaptors.networkAdaptors);
+                this.actions.update(Adaptors);
             })
             .catch(error => {
                 console.error(error)
             })
-
-
     }
 
 }

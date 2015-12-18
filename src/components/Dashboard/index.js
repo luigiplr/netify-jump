@@ -17,7 +17,8 @@ default React.createClass({
 
     getInitialState() {
         return {
-            online: NetworkStore.getState().online
+            online: NetworkStore.getState().online,
+            isCompatible: NetworkStore.getState().isCompatible,
         };
     },
 
@@ -36,11 +37,14 @@ default React.createClass({
     update() {
         if (this.isMounted()) {
             this.setState({
-                online: NetworkStore.getState().online
+                online: NetworkStore.getState().online,
+                isCompatible: NetworkStore.getState().isCompatible,
             });
         }
     },
     render() {
+
+        console.log(this.state.isCompatible)
 
         return (
             <div className="main">
@@ -50,7 +54,7 @@ default React.createClass({
 
                 <div className="line vertical" style={{marginTop: '90px', height: '15px',marginBottom: '8px'}}/>
 
-                <Status type="full" thinking={(this.state.online === 'checking')? true : false} checked={this.state.online} text="Internet"/>
+                <Status type="full" thinking={(typeof this.state.online === 'string')} checked={this.state.online} text="Internet"/>
 
                 <div className="line vertical" style={{marginTop: '9px', height: '15px',marginBottom: '8px'}}/>
 
@@ -68,7 +72,8 @@ default React.createClass({
                 </div>
 
                 <Status type="mini" style={{marginTop: '5px', right: '247px'}} checked={true}/>
-                <Status type="mini" style={{marginTop: '-20px', left: '249px'}} checked={true}/>
+                
+                <Status type="mini"  thinking={(typeof this.state.isCompatible === 'string')} checked={this.state.isCompatible} style={{marginTop: '-20px', left: '249px'}}/>
 
                 <div className="line vertical" style={{marginTop: '10px', height: '15px', marginBottom: '8px', right: '247px'}}/>
 

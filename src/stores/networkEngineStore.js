@@ -9,9 +9,31 @@ class NetworkEngineStore {
         this.bindActions(networkEngineActions);
 
         this.online = 'checking';
+        this.isCompatible = 'checking';
+        this.adaptors = [];
 
         this.hotspot = {};
+        this.info = {};
 
+    }
+
+    onUpdate(info) {
+        this.setState({
+            info: info
+        });
+        console.log(this)
+    }
+
+    onAdaptors(adaptors) {
+        this.setState({
+            adaptors: adaptors
+        });
+    }
+
+    onIsCompatible(status) {
+        this.setState({
+            isCompatible: status
+        });
     }
 
     onOnline(status) {
