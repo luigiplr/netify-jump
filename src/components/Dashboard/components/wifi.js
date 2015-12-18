@@ -55,10 +55,12 @@ default React.createClass({
 
         if(this.state.isCompatible !== 'checking' && this.state.isCompatible){
             Running = (this.state.info.Status === 'Started') ? true : false;
-
-            var MAC = _.result(_.find(this.state.adaptors, adaptor => {
-                    return adaptor.interface === 'Microsoft Hosted Network Virtual Adapter';
-                }), 'mac');
+            
+            if(Running){
+                var MAC = _.result(_.find(this.state.adaptors, adaptor => {
+                        return adaptor.interface === 'Microsoft Hosted Network Virtual Adapter';
+                    }), 'mac');
+            }
 
         }
 
