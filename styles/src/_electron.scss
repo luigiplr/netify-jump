@@ -1,0 +1,20 @@
+html,
+body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 200;
+    color: white;
+    height: 100vh;
+    overflow: none;
+    position: fixed;
+    
+    -webkit-font-smoothing: subpixel-antialiased;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    cursor: default;
+    -webkit-font-smoothing: subpixel-antialiased;
+    text-rendering: optimizelegibility;
+    img {
+        pointer-events: none;
+    }
+}

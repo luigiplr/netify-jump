@@ -1,0 +1,59 @@
+{
+  "name": "",
+  "version": "0.0.1",
+  "author": "Luigi Poole",
+  "description": "Netify Jump",
+  "relese-name": "Hello World",
+  "homepage": "",
+  "main": "js/browser.js",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": "",
+  "scripts": {
+    "start": "grunt",
+    "release": "grunt release"
+  },
+  "license": "GPL-3.0",
+  "dependencies": {
+    "alt": "^0.17.8",
+    "bluebird": "^3.0.6",
+    "history": "^1.16.0",
+    "lodash": "^3.10.1",
+    "node-notifier": "^4.4.0",
+    "node-uuid": "^1.4.7",
+    "react": "^0.14.3",
+    "react-addons-pure-render-mixin": "^0.14.3",
+    "react-addons-update": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "react-router": "^1.0.2",
+    "request": "^2.67.0",
+    "yargs": "^3.31.0"
+  },
+  "devDependencies": {
+    "babel": "^6.3.13",
+    "babel-plugin-transform-merge-sibling-variables": "^6.3.13",
+    "babel-plugin-transform-minify-booleans": "^6.3.13",
+    "babel-plugin-transform-property-literals": "^6.3.13",
+    "babel-plugin-transform-simplify-comparison-operators": "^6.3.13",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "grunt": "^0.4.5",
+    "grunt-babel": "^6.0.0",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-clean": "^0.7.0",
+    "grunt-contrib-compress": "^0.14.0",
+    "grunt-contrib-copy": "^0.8.2",
+    "grunt-contrib-watch-chokidar": "^1.0.0",
+    "grunt-electron": "^2.0.1",
+    "grunt-newer": "^1.1.1",
+    "grunt-sass": "^1.1.0",
+    "grunt-shell": "^1.1.2",
+    "grunt-shell-spawn": "^0.3.10",
+    "load-grunt-tasks": "^3.3.0"
+  },
+  "optionalDependencies": {
+    "electron-prebuilt": "0.36.0"
+  }
+}

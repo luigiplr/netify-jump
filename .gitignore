@@ -1,0 +1,17 @@
+.DS_Store
+.swp
+build
+dist
+node_modules
+npm-debug.log
+
+# Cache
+cache
+
+# Tests
+.test
+
+# IDEs
+.idea
+
+OAuth.json

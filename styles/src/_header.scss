@@ -1,0 +1,91 @@
+header {
+    height: 30px;
+    background-color: #0097D6;
+    position: fixed;
+    width: 100vw;
+    -webkit-app-region: drag;
+}
+
+header .controls.win32 div {
+    -webkit-app-region: no-drag;
+    height: 28px;
+    width: 45px;
+    float: right;
+    transition: background-color 30ms linear;
+}
+
+header .controls.win32 div.close {
+    width: 47px;
+}
+
+header .controls.win32 div.close i {
+    font-size: 30px;
+    position: relative;
+    margin-left: 20px;
+    top: -1px;
+}
+
+header .controls.win32 div.close:hover {
+    background-color: #E81123;
+}
+
+header .controls.win32 div.minimize i {
+    position: absolute;
+    margin-left: 19px;
+    background-color: #fff;
+    margin-top: 15px;
+    width: 12px;
+    height: 1px;
+}
+
+header .controls.win32 div.minimize:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+header .controls.win32 div.toggle i {
+    position: absolute;
+    background-color: transparent;
+    border: 1px solid #fff;
+    width: 7px;
+    height: 7px;
+}
+
+header .controls.win32 div.toggle i:first-of-type {
+    margin-left: 19px;
+    margin-top: 10px;
+    z-index: 2;
+    background-color: #0097D6;
+}
+
+header .controls.win32 div.toggle i:nth-of-type(2) {
+    margin-left: 21px;
+    margin-top: 8px;
+    z-index: 1;
+}
+
+header .controls.win32 div.toggle:hover i {
+    background-color: #3FB1E0;
+}
+
+header .controls.win32 div.toggle:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+header .controls {
+    position: absolute;
+    height: 100%;
+    width: 90%;
+    right: 0px
+}
+
+header .controls div {}
+
+header h1 {
+    text-align: center;
+    color: aliceblue;
+    font-size: 15px;
+    width: 100px;
+    margin: auto;
+    margin-top: 7px;
+    font-weight: 300;
+}

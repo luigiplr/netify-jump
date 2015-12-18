@@ -1,0 +1,183 @@
+
+.main {
+    width: 100vw;
+    top: 30px;
+    position: fixed;
+    height: calc(100vh - 30px);
+    background: linear-gradient(142deg, rgb(11, 59, 80) 0%, rgb(12, 52, 69) 26%, rgb(11, 42, 56) 50%, rgb(11, 32, 40) 74%, rgb(11, 29, 37) 100%);
+}
+
+.main h1 {
+    text-align: center;
+    position: relative;
+    color: #577180;
+    margin-top: 40px;
+    font-size: 35px;
+}
+
+.main .line {
+    background-color: #1D3B49;
+}
+
+.main .line.vertical {
+    width: 1px;
+    position: relative;
+    margin: auto;
+}
+
+.main .line.curve {
+    margin: 0 auto;
+    position: relative;
+    background-color: transparent;
+    width: 20px;
+    height: 20px;
+}
+
+.main .line.curve.left {
+    right: 20px;
+    border-top: 1px solid #1D3B49;
+    border-left: 1px solid #1D3B49;
+    border-top-left-radius: 20px;
+    float: left;
+}
+
+.main .line.curve.right {
+    left: 20px;
+    border-top: 1px solid #1D3B49;
+    border-right: 1px solid #1D3B49;
+    border-top-right-radius: 20px;
+    float: right;
+}
+
+.main .line.curve.up {
+    transform: rotate(90deg);
+    top: -20px;
+}
+
+.main .line.horizontal {
+    height: 1px;
+    position: absolute;
+}
+
+.main .line.horizontal.left {
+    right: 50%;
+}
+
+.main .line.horizontal.right {
+    left: 50%;
+}
+
+.main .status {
+    width: 100px;
+    background-color: #1D3B49;
+    height: 20px;
+    border-radius: 10px;
+    position: relative;
+    margin: auto;
+}
+
+.main .status.check {
+    width: 20px;
+}
+
+.main .status.check .check-rip {
+    height: 22px;
+    width: 22px;
+    left: -2px;
+    top: -2px;
+    border-radius: 10px;
+    position: absolute;
+    background-color: transparent;
+    border: 1px solid rgba(0, 178, 10, 0.55);
+    z-index: -1;
+}
+
+.main .status.check .check-rip.two {
+    height: 26px;
+    width: 26px;
+    border: 1px solid rgba(0, 178, 10, 0.21);
+    left: -4px;
+    top: -4px;
+}
+
+.main .status .check {
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    float: left;
+    border-radius: 10px;
+    background-color: #00B20A;
+    color: #fff;
+}
+
+.main .status .check i {
+    position: relative;
+    margin-left: 5px;
+    font-size: 13px;
+    top: 2px;
+}
+
+.main .status span {
+    position: relative;
+    float: left;
+    margin-left: 26px;
+    height: 100%;
+    line-height: 20px;
+}
+
+.main .section {
+    position: relative;
+    margin: auto;
+}
+
+.main .section h2 {
+    text-align: center;
+    font-size: 18px;
+    color: white;
+    letter-spacing: 1px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #304E5B;
+}
+
+.main .pc {
+    width: 80px;
+    background-color: #1D3B49;
+    height: 80px;
+    top: -10px;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+    margin: auto;
+}
+
+.main .pc.darwin object {
+    width: 85%;
+    position: relative;
+    margin: auto;
+    display: block;
+    top: 5px;
+}
+
+.main .pc.win32 object {
+    width: 60%;
+    position: relative;
+    margin: auto;
+    display: block;
+    top: 18px;
+    left: 1px;
+}
+
+.main .jump {
+    position: relative;
+    display: block;
+    left: 250px;
+    top: -120px;
+    margin: auto;
+}
+
+.main .globe {
+    position: relative;
+    display: block;
+    top: 80px;
+    margin: auto;
+}
