@@ -1,4 +1,4 @@
-### [WIP] Netify Jump
+# [WIP] Netify Jump
 
 ![Dashboard](https://raw.githubusercontent.com/luigiplr/netify-jump/master/util/UI_preview.png)
 
