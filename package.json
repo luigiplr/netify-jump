@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "author": "Luigi Poole",
   "description": "Netify Jump",
-  "relese-name": "Hello World",
+  "release-name": "Hello World",
   "homepage": "",
   "main": "js/browser.js",
   "repository": {

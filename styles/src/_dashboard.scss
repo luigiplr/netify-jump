@@ -368,3 +368,12 @@
 .main .bottom-bar i:hover {
     opacity: 0.7;
 }
+
+.main .bottom-bar .version {
+    bottom: 0;
+    position: absolute;
+    font-size: 13px;
+    color: aliceblue;
+    margin-left: 5px;
+    font-style: italic;
+}

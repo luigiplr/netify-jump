@@ -68,14 +68,6 @@ app.on('ready', () => {
 
     ipcMain.on('app:close', app.quit);
 
-    ipcMain.on('app:bitchForAttention', (event, state = true) => {
-        if (!mainWindow.isFocused())
-            mainWindow.flashFrame(state);
-    });
-
-
-
-
 });
 
 
