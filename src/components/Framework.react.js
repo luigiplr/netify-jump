@@ -6,7 +6,8 @@ import {
 from 'react-router';
 import {
     mouseTrap
-} from 'react-mousetrap';
+}
+from 'react-mousetrap';
 import {
     ipcRenderer
 }
@@ -29,8 +30,8 @@ const Framework = React.createClass({
         NetworkActions.updateAdaptors();
     },
 
-    componentDidMount(){
-                UpdateActions.check();
+    componentDidMount() {
+        UpdateActions.check();
     },
 
     render() {

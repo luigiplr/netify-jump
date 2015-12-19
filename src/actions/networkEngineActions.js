@@ -45,7 +45,6 @@ class networkEngineActions {
         );
     }
 
-
     refreshHotspot() {
         this.dispatch();
         if (!statsUpdateQueue.idle())
@@ -64,7 +63,7 @@ class networkEngineActions {
             online((err, status) => {
                 this.actions.online(status);
             });
-        }, 1000);
+        }, 500);
     }
 
 
