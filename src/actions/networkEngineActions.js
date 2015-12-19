@@ -25,13 +25,13 @@ const hotspotUpdateQueue = async.queue((task, next) => {
 });
 
 const internetUpdateQueue = async.queue((task, next) => {
-    _.delay(() => {
-        online((err, status) => {
-        	internetUpdateQueue.push(true);
-            statsUpdateEmitter.emit('internet', status);
+    online((err, status) => {
+        internetUpdateQueue.push(true);
+        statsUpdateEmitter.emit('internet', status);
+        _.delay(() => {
             process.nextTick(next);
-        });
-    }, 1000);
+        }, 1000);
+    });
 });
 
 
