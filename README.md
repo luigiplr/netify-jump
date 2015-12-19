@@ -4,7 +4,7 @@
 
 ##What is Netify Jump?
 
-Netify Jump is a software-based system that effectivly transforms your computer into a WiFi router and/or repeater. 
+Netify Jump is a software-based system that effectively transforms your computer into a WiFi router and/or repeater. 
 <br><br>
 Netify Jump can broadcast WiFi right from your PC, so that any other WiFi-enabled device can get online. In addition using the built in "File Jump" service devices can beam files to and from other connected devices. 
 
