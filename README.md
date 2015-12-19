@@ -1,16 +1,18 @@
-# [WIP] Netify Jump
+#Netify Jump
 
-![Dashboard](https://raw.githubusercontent.com/luigiplr/netify-jump/master/util/UI_preview.png)
-
-##What is Netify Jump?
+## What is Netify Jump?
 
 Netify Jump is a software-based system that effectively transforms your computer into a WiFi router and/or repeater. 
 <br><br>
 Netify Jump can broadcast WiFi right from your PC, so that any other WiFi-enabled device can get online. In addition using the built in "File Jump" service devices can beam files to and from other connected devices. 
 
-##Why did I make it?
+## Why did I make it?
 
 I feel software such as this should not require large license fees & paid subscriptions for the newest version every year. I believe in open source software and the power that is the community. (I also needed to make a hotspot)
+
+## Screenshots
+
+<img src="https://raw.githubusercontent.com/luigiplr/netify-jump/master/util/UI_preview.png" alt="Drawing" width="30%"/>
 
 ## Where's the beef!
 
