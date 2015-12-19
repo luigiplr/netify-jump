@@ -27,7 +27,10 @@ const Framework = React.createClass({
         });
         NetworkActions.checkOnline();
         NetworkActions.updateAdaptors();
+    },
 
+    componentDidMount(){
+                UpdateActions.check();
     },
 
     render() {
