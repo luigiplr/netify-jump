@@ -15,6 +15,7 @@ class networkEngineActions {
             'isCompatible',
             'update',
 
+            'settingsOK',
 
             'online',
 

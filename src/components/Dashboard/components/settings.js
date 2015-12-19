@@ -37,7 +37,7 @@ default React.createClass({
     },
 
     componentDidMount() {
-        
+        NetworkActions.settingsOK(this.state.passwordOK && this.state.SSIDOK);
     },
 
     componentWillUnmount() {
@@ -106,6 +106,8 @@ default React.createClass({
                 });
                 break;
         }
+
+        NetworkActions.settingsOK((this.state.passwordOK && this.state.SSIDOK));
     },
 
     render() {

@@ -11,6 +11,8 @@ class NetworkEngineStore {
         this.enabling = false;
         this.disabling = false;
 
+        this.settingsOK = 'checking';
+
         this.online = 'checking';
         this.isCompatible = 'checking';
         this.adaptors = [];
@@ -27,6 +29,11 @@ class NetworkEngineStore {
         });
     }
 
+    onSettingsOK(ok){
+          this.setState({
+            settingsOK: ok
+        });
+    }
 
     onEnabling(enabling = true) {
         this.setState({

@@ -74,6 +74,7 @@
     border-radius: 10px;
     position: relative;
     margin: auto;
+    transition: all 700ms ease;
 }
 
 .main .status.check {
@@ -113,12 +114,24 @@
     top: -4px;
 }
 
-.main .status.check.thinking .check-rip.two {
-    border: 1px solid rgba(251, 219, 12, 0.21);
+
+.main .status .check.disabled .check-rip,{
+      border: 1px solid rgba(232, 17, 35, 0.50);
 }
+
+.main .status.check.disabled .check-rip.two {
+    border: 1px solid rgba(232, 17, 35, 0.39);
+}
+
+
+
 
 .main .status .check.thinking .check-rip,{
       border: 1px solid rgba(251, 219, 12, 0.55);
+}
+
+.main .status.check.thinking .check-rip.two {
+    border: 1px solid rgba(251, 219, 12, 0.21);
 }
 
 .main .status .check {

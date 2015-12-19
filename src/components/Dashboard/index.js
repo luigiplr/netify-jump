@@ -20,6 +20,7 @@ default React.createClass({
         return {
             online: NetworkStore.getState().online,
             isCompatible: NetworkStore.getState().isCompatible,
+            settingsOK: NetworkStore.getState().settingsOK
         };
     },
 
@@ -40,6 +41,7 @@ default React.createClass({
             this.setState({
                 online: NetworkStore.getState().online,
                 isCompatible: NetworkStore.getState().isCompatible,
+                settingsOK: NetworkStore.getState().settingsOK
             });
         }
     },
@@ -70,7 +72,7 @@ default React.createClass({
                     </div>
                 </div>
 
-                <Status type="mini" style={{marginTop: '5px', right: '247px'}} checked={true}/>
+                <Status type="mini" style={{marginTop: '5px', right: '247px'}} checked={this.state.settingsOK}/>
                 
                 <Status type="mini"  thinking={(typeof this.state.isCompatible === 'string')} checked={this.state.isCompatible} style={{marginTop: '-20px', left: '249px'}}/>
 
