@@ -367,7 +367,7 @@ FunctionEnd
 ; ------------------- ;
 Section
     ;Set output path to InstallDir
-    SetOutPath "\\?\$INSTDIR\"
+    SetOutPath "$INSTDIR\"
 
     ;Add the files
     !ifdef WIN_PATHS
@@ -375,7 +375,7 @@ Section
     !endif
 
     ;Create uninstaller
-    WriteUninstaller "\\?\$INSTDIR\Uninstall.exe"
+    WriteUninstaller "$INSTDIR\Uninstall.exe"
 SectionEnd
 
 ; ------------------- ;
@@ -383,7 +383,7 @@ SectionEnd
 ; ------------------- ;
 Section
     ;Working Directory
-    SetOutPath "\\?\$INSTDIR"
+    SetOutPath "$INSTDIR"
 
     ;Start Menu Shortcut
     RMDir /r "$SMPROGRAMS\${APP_NAME}"
@@ -420,7 +420,7 @@ SectionEnd
 ; ------------------- ;
 Section "uninstall" 
     Call un.isRunning
-    RMDir /r "\\?\$INSTDIR"
+    RMDir /r "$INSTDIR"
     RMDir /r "$SMPROGRAMS\${APP_NAME}"
     Delete "$DESKTOP\${APP_NAME}.lnk"
     

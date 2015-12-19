@@ -280,10 +280,18 @@
     box-sizing: border-box;
 }
 
+
+
 .main .section .settings input:focus {
     outline: none;
     border-color: #9ecaed;
     box-shadow: 0 0 1px #00B20A;
+}
+
+.main .section .settings input.error{
+       outline: none;
+    border-color: #E81123;
+    box-shadow: 0 0 1px #E81123; 
 }
 
 .main .section .settings input {

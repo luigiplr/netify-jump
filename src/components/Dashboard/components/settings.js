@@ -1,6 +1,9 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-
+import {
+    dialog
+}
+from 'remote';
 
 import NetworkStore from '../../../stores/networkEngineStore';
 import NetworkActions from '../../../actions/networkEngineActions';
@@ -24,6 +27,8 @@ default React.createClass({
             hotspot: NetworkStore.getState().hotspot,
             enabling: NetworkStore.getState().enabling,
             disabling: NetworkStore.getState().disabling,
+            passwordOK: !((localStorage.getItem('hotspot-key') || '').length < 8),
+            SSIDOK: !((localStorage.getItem('hotspot-ssid') || 'Netify Jump Hotspot').length < 1)
         };
     },
 
@@ -50,23 +55,62 @@ default React.createClass({
         }
     },
 
+    showError(error){
+        dialog.showMessageBox({
+            noLink: true,
+            type: 'error',
+            title: 'Netify Jump: Error!',
+            message: error.message,
+            detail: error.detail,
+            buttons: ['Ok']
+        });
+    },
 
     handelToggle(){
 
+        if(!this.state.isCompatible || this.state.isCompatible === 'checking')
+            return this.showError({
+                message: 'No compatible WiFi adaptor found!',
+                detail: 'Netify Jump requires a wifi capable of hosting infrastructure mode hotspots to be enabled.'
+            });
+
         var enabled = (this.state.hotspot.Status === 'Started') ? true : false;
 
+        if(!this.state.SSIDOK || !this.state.passwordOK)
+            return this.showError({
+                message: 'Invalid hotspot SSID or password',
+                detail: 'Please review hotspot settings'
+            });
+
+
         if(!enabled && !this.state.enabling){
+            localStorage.setItem('hotspot-ssid', this.refs['hotspot-ssid'].value);
+            localStorage.setItem('hotspot-key', this.refs['hotspot-key'].value);
+
             NetworkActions.enable(this.refs['hotspot-ssid'].value, this.refs['hotspot-key'].value);
         }else{
             NetworkActions.disable();
         }
+    },
 
+    validate(type){
+        switch(type) {
+            case 'password':
+                this.setState({
+                    passwordOK: !(this.refs['hotspot-key'].value.length < 8)
+                });
+                break;
+            case 'ssid':
+                this.setState({
+                    SSIDOK: !(this.refs['hotspot-ssid'].value.length < 1)
+                });
+                break;
+        }
     },
 
     render() {
 
         var running = (this.state.hotspot.Status === 'Started') ? true : false;
-
 
         return (
             <div className="section" style={{marginTop: '0px', height: '15px', width: '300px', right: '245px'}}>
@@ -84,11 +128,12 @@ default React.createClass({
                     <div className="sep"/>
 
                     <p className="input" >Hotspot SSID:</p>
-                    <input ref="hotspot-ssid" defaultValue={this.state.hotspot['SSID name'] || ''} className="text" />
+
+                    <input ref="hotspot-ssid" onChange={this.validate.bind(this,'ssid')} defaultValue={localStorage.getItem('hotspot-ssid') || 'Netify Jump Hotspot'} className={this.state.SSIDOK ? '' : 'error'} />
                     <div className="sep"/>
 
                     <p className="input" >Hotspot Password:</p>
-                    <input ref="hotspot-key"  className="text"  type="password" />
+                    <input ref="hotspot-key" onChange={this.validate.bind(this,'password')} defaultValue={localStorage.getItem('hotspot-key') || ''}  className={this.state.passwordOK ? '' : 'error'}  type="password" />
                     <div className="sep"/>
                 </div>
 
