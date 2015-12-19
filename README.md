@@ -34,4 +34,4 @@ Running `npm start` will download and install [Electron](http://electron.atom.io
 
 ## Copyright and License
 
-Code released under the [GPLv3](LICENSE.md).
+Code released under the [GPLv3](LICENSE).
