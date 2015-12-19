@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     var target = grunt.option('target') || 'development';
 
     var BASENAME = 'Netify Jump';
-    var arch = grunt.option('arch') ? grunt.option('arch') : 'ia32';
+    var arch = grunt.option('arch') ? grunt.option('arch') : process.arch;
 
 
 
