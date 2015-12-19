@@ -52,8 +52,9 @@ app.on('ready', () => {
         mainWindow.focus();
     });
 
-    mainWindow.on('close', app.quit);
-
+    mainWindow.on('close', () => {
+        app.quit();
+    });
 
     ipcMain.on('app:get:maximized', (event) => {
         event.returnValue = mainWindow.isMaximized();
@@ -74,9 +75,13 @@ app.on('ready', () => {
         console.info('Developer Tools Toggled.');
     });
 
-    ipcMain.on('app:close', app.quit);
+    ipcMain.on('app:close', () => {
+        app.quit();
+    });
 
 });
 
 
-app.on('window-all-closed', app.quit);
+app.on('window-all-closed', ()=>{
+    app.quit();
+});

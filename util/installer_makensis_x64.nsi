@@ -53,9 +53,9 @@ VIAddVersionKey "CompanyName" "${COMPANY_NAME}"
 VIAddVersionKey "LegalCopyright" "${APP_URL}"
 VIProductVersion "${JUMP_VERSION_CLEAN}.0"
 !ifdef WIN_PATHS
-    OutFile "..\dist\${APP_NAME}-${JUMP_VERSION}-x64-Setup.exe"
+    OutFile "..\dist\${APP_NAME}-${JUMP_VERSION}-Windows-x64-Setup.exe"
 !else
-    OutFile "../dist/${APP_NAME}-${JUMP_VERSION}-x64-Setup.exe"
+    OutFile "../dist/${APP_NAME}-${JUMP_VERSION}-Windows-x64-Setup.exe"
 !endif
 
 CRCCheck on
