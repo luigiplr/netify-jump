@@ -1,5 +1,6 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
+import _ from 'lodash';
 
 import Status from './components/status';
 import PC from './components/pc';
@@ -20,16 +21,13 @@ default React.createClass({
         return {
             online: NetworkStore.getState().online,
             isCompatible: NetworkStore.getState().isCompatible,
-            settingsOK: NetworkStore.getState().settingsOK
+            settingsOK: NetworkStore.getState().settingsOK,
+            hotspot: NetworkStore.getState().hotspot
         };
     },
 
     componentWillMount() {
         NetworkStore.listen(this.update);
-    },
-
-    componentDidMount() {
-        
     },
 
     componentWillUnmount() {
@@ -41,8 +39,15 @@ default React.createClass({
             this.setState({
                 online: NetworkStore.getState().online,
                 isCompatible: NetworkStore.getState().isCompatible,
-                settingsOK: NetworkStore.getState().settingsOK
+                settingsOK: NetworkStore.getState().settingsOK,
+                hotspot: NetworkStore.getState().hotspot
             });
+
+            _.defer(() =>{
+                if(this.state.isCompatible && this.state.online && this.state.hotspot.Status && this.state.hotspot.Status === 'Started')
+                    NetworkActions.refreshHotspot();
+            });
+
         }
     },
     render() {

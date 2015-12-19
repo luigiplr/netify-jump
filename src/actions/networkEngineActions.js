@@ -1,9 +1,30 @@
 import path from 'path';
 import online from 'is-online';
 import Promise from 'bluebird';
+import async from 'async';
 import nodeHotspot from 'node-hotspot';
 import _ from 'lodash';
 import alt from '../alt';
+import {
+    EventEmitter
+}
+from 'events'
+
+var statsUpdateEmitter = new EventEmitter();
+
+var statsUpdateQueue = async.queue((task, next) => {
+    console.log('refreshing')
+    nodeHotspot.stats()
+        .then(info => {
+            statsUpdateEmitter.emit('update', info);
+            process.nextTick(next);
+        })
+        .catch(error => {
+            console.error(error)
+            process.nextTick(next);
+        });
+});
+
 
 
 
@@ -24,6 +45,19 @@ class networkEngineActions {
             'enabling'
         );
     }
+
+
+    refreshHotspot() {
+        this.dispatch();
+        if (!statsUpdateQueue.idle())
+            return false;
+
+        statsUpdateQueue.push(true);
+
+        statsUpdateEmitter.once('update', this.actions.update);
+
+    }
+
 
     checkOnline() {
         this.dispatch();
