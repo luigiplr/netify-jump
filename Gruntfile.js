@@ -7,50 +7,17 @@ module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);
     var target = grunt.option('target') || 'development';
 
-
-    var os;
-    switch (process.platform) {
-        case 'win32':
-            os = 'win';
-            break;
-        case 'linux':
-            os = 'linux';
-            break;
-        case 'darwin':
-            os = 'osx';
-            break;
-        default:
-            os = process.platform;
-    }
-
-
-    var arch = grunt.option('arch') ? grunt.option('arch') : process.arch;
-
-    console.log(' ');
-    console.log('Compiling For:', (os === 'win') ? 'Windows' : 'Mac', arch);
-    console.log(' ');
-
-
     var BASENAME = 'Netify Jump';
-    var APPNAME = BASENAME;
+    var arch = grunt.option('arch') ? grunt.option('arch') : 'ia32';
 
-    var OSX_OUT = './dist';
-    var OSX_OUT_X64 = OSX_OUT + '/' + APPNAME + '-darwin-x64';
-    var OSX_FILENAME = OSX_OUT_X64 + '/' + APPNAME + '.app';
 
-    var OSX_DIST_X64 = OSX_OUT + '/' + APPNAME + '-' + packagejson.version + '.pkg';
+
+    console.log(' ');
+    console.log('Compiling For:', (process.platform === 'win32') ? 'Windows' : 'Mac', arch);
+    console.log(' ');
+
 
     grunt.initConfig({
-        APPNAME: APPNAME,
-        APPNAME_ESCAPED: APPNAME.replace(/ /g, '\\ ').replace(/\(/g, '\\(').replace(/\)/g, '\\)'),
-        OSX_OUT: OSX_OUT,
-        OSX_OUT_ESCAPED: OSX_OUT.replace(/ /g, '\\ ').replace(/\(/g, '\\(').replace(/\)/g, '\\)'),
-        OSX_OUT_X64: OSX_OUT_X64,
-        OSX_FILENAME: OSX_FILENAME,
-        OSX_FILENAME_ESCAPED: OSX_FILENAME.replace(/ /g, '\\ ').replace(/\(/g, '\\(').replace(/\)/g, '\\)'),
-        OSX_DIST_X64: OSX_DIST_X64,
-        OSX_DIST_X64_ESCAPED: OSX_DIST_X64.replace(/ /g, '\\ ').replace(/\(/g, '\\(').replace(/\)/g, '\\)'),
-        // electron
         electron: {
             windows: {
                 options: {
@@ -63,32 +30,6 @@ module.exports = function(grunt) {
                     prune: true,
                     asar: true
                 }
-            },
-            linux: {
-                options: {
-                    name: BASENAME,
-                    dir: 'build/',
-                    out: 'dist',
-                    version: packagejson.optionalDependencies['electron-prebuilt'],
-                    platform: 'linux',
-                    arch: arch,
-                    asar: true,
-                    prune: true
-                }
-            },
-            osx: {
-                options: {
-                    name: APPNAME,
-                    dir: 'build/',
-                    out: 'dist',
-                    version: packagejson.optionalDependencies['electron-prebuilt'],
-                    platform: 'darwin',
-                    arch: arch,
-                    asar: true,
-                    prune: true,
-                    'app-bundle-id': 'media.netifyJump',
-                    'app-version': packagejson.version
-                }
             }
         },
         copy: {
@@ -96,23 +37,13 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: '.',
-                    src: ['*.md', 'package.json', 'index.html'],
+                    src: ['package.json', 'index.html'],
                     dest: 'build/'
                 }, {
                     expand: true,
                     cwd: 'images/',
                     src: ['**/*'],
                     dest: 'build/images/'
-                }, {
-                    expand: true,
-                    cwd: 'bin/vlc',
-                    src: ['**/*'],
-                    dest: 'build/resources/bin/'
-                }, {
-                    expand: true,
-                    cwd: 'bin/wcjs',
-                    src: ['**/*'],
-                    dest: 'build/resources/bin/'
                 }, {
                     expand: true,
                     cwd: 'fonts/',
@@ -131,7 +62,7 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: '.',
-                    src: ['*.md', 'package.json', 'index.html'],
+                    src: ['package.json', 'index.html'],
                     dest: 'build/'
                 }, {
                     expand: true,
@@ -159,21 +90,7 @@ module.exports = function(grunt) {
                     src: ['icon.ico', 'icon.png'],
                     dest: 'dist/<%= BASENAME %>-win32-ia32/resources/'
                 }]
-            },
-            releaseOSX: {
-                files: [{
-                    expand: true,
-                    cwd: 'util/images/',
-                    src: ['icon.png'],
-                    dest: 'dist/<%= OSX_FILENAME %>-win32-ia32/resources/'
-                }, {
-                    src: 'util/images/icon.icns',
-                    dest: '<%= OSX_FILENAME %>/Contents/Resources/atom.icns'
-                }],
-                options: {
-                    mode: true
-                }
-            },
+            }
         },
         sass: {
             options: {
@@ -213,9 +130,6 @@ module.exports = function(grunt) {
                         cwd: 'build'
                     }
                 }
-            },
-            zip: {
-                command: 'ditto -c -k --sequesterRsrc --keepParent <%= OSX_FILENAME_ESCAPED %> dist/' + BASENAME + '-' + packagejson.version + '-Mac.zip',
             }
         },
         clean: {
@@ -234,21 +148,8 @@ module.exports = function(grunt) {
                     cwd: './dist/<%= BASENAME %>-win32-ia32',
                     src: '**/*'
                 }]
-            },
-            linux: {
-                options: {
-                    archive: './dist/<%= BASENAME %>-' + packagejson.version + '-Linux-' + arch + '-Alpha.zip',
-                    mode: 'zip'
-                },
-                files: [{
-                    expand: true,
-                    dot: true,
-                    cwd: './dist/<%= BASENAME %>-linux-' + arch,
-                    src: '**/*'
-                }]
-            },
+            }
         },
-        // livereload
         watchChokidar: {
             options: {
                 spawn: true
@@ -281,12 +182,6 @@ module.exports = function(grunt) {
 
     if (process.platform === 'win32') {
         grunt.registerTask('release', ['clean:release', 'babel', 'sass', 'copy:release', 'electron:windows', 'clean:unusedWin', 'copy:releaseWin', 'compress:windows']);
-    }
-    if (process.platform === 'darwin') {
-        grunt.registerTask('release', ['clean:release', 'babel', 'sass', 'copy:release', 'electron:osx', 'copy:releaseOSX', 'shell:zip']);
-    }
-    if (process.platform === 'linux') {
-        grunt.registerTask('release', ['clean:release', 'babel', 'sass', 'copy:release', 'electron:linux', 'compress:linux']);
     }
 
     process.on('SIGINT', function() {
