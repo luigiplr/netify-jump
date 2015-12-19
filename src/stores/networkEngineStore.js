@@ -9,6 +9,7 @@ class NetworkEngineStore {
         this.bindActions(networkEngineActions);
 
         this.enabling = false;
+        this.disabling = false;
 
         this.online = 'checking';
         this.isCompatible = 'checking';
@@ -19,10 +20,17 @@ class NetworkEngineStore {
 
     }
 
-    onEnabling(enabling = true) {
-        console.log(enabling)
-
+    onDisabling(dis = true) {
         this.setState({
+            enabling: false,
+            disabling: dis
+        });
+    }
+
+
+    onEnabling(enabling = true) {
+        this.setState({
+            disabling: false,
             enabling: enabling
         });
     }

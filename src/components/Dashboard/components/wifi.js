@@ -24,7 +24,8 @@ default React.createClass({
             isCompatible: NetworkStore.getState().isCompatible,
             hotspot: NetworkStore.getState().hotspot,
             adaptors: NetworkStore.getState().adaptors,
-            enabling: NetworkStore.getState().enabling
+            enabling: NetworkStore.getState().enabling,
+            disabling: NetworkStore.getState().disabling,
         };
     },
 
@@ -46,7 +47,8 @@ default React.createClass({
                 isCompatible: NetworkStore.getState().isCompatible,
                 hotspot: NetworkStore.getState().hotspot,
                 adaptors: NetworkStore.getState().adaptors,
-                enabling: NetworkStore.getState().enabling
+                enabling: NetworkStore.getState().enabling,
+                disabling: NetworkStore.getState().disabling,
             });
         }
     },
@@ -65,27 +67,27 @@ default React.createClass({
 
         }
 
-        console.log('enabling', this.state.enabling);
-
         return (
             <div className="section" style={{marginTop: '-15px', height: '15px', width: '300px', left: '249px'}}>
                 <h2>Wi-Fi</h2>
                 <div className="adaptor">
                     <div className="sep"/>
-                    <If test={(this.state.enabling || this.state.isCompatible === 'checking')}>
+                    <If test={(this.state.enabling || this.state.disabling || this.state.isCompatible === 'checking')}>
                         <div>
 
-                            <span style={{color: 'rgba(251, 219, 12, 0.82)'}}>{(this.state.enabling) ? 'Enabling...' : 'Checking...'}</span>
+                            <span style={{color: 'rgba(251, 219, 12, 0.82)'}}>{((this.state.enabling || this.state.disabling) ? ((this.state.disabling) ? 'Disabling...' : 'Enabling...') : 'Checking...')}</span>
                             <p>Status</p>
 
                         </div>
                     </If>
                     <If test={(this.state.isCompatible !== 'checking' && this.state.isCompatible && !this.state.enabling)}>
                         <div>
-
-                            <span style={{color: Running ? '#00B20A': '#E81123'}}>{Running ? 'Active': 'Inactive'}</span>
-                            <p>Status</p>
-
+                            <If test={(!this.state.disabling)}>
+                                <div>
+                                    <span style={{color: Running ? '#00B20A': '#E81123'}}>{Running ? 'Active': 'Inactive'}</span>
+                                    <p>Status</p>
+                                </div>
+                            </If>
                             <If test={(this.state.isCompatible !== 'checking' && this.state.isCompatible && Running)}>
                                 <div>
                                     <div className="sep"/>

@@ -22,7 +22,8 @@ default React.createClass({
         return {
             isCompatible: NetworkStore.getState().isCompatible,
             hotspot: NetworkStore.getState().hotspot,
-            enabling: NetworkStore.getState().enabling
+            enabling: NetworkStore.getState().enabling,
+            disabling: NetworkStore.getState().disabling,
         };
     },
 
@@ -43,7 +44,8 @@ default React.createClass({
             this.setState({
                 isCompatible: NetworkStore.getState().isCompatible,
                 hotspot: NetworkStore.getState().hotspot,
-                enabling: NetworkStore.getState().enabling
+                enabling: NetworkStore.getState().enabling,
+                disabling: NetworkStore.getState().disabling,
             });
         }
     },
@@ -76,7 +78,7 @@ default React.createClass({
                     <span>Hotspot Enabled</span>
 
                     <div className="toggler">
-                        <input onClick={this.handelToggle} ref="hotspot-enabled" checked={this.state.enabling ? true : running} type="checkbox" id="hotspot" className="toggle" style={{display:'none'}} />
+                        <input onClick={this.handelToggle} ref="hotspot-enabled" checked={((this.state.enabling && !this.state.disabling) ? true :((this.state.disabling) ? false : running))} type="checkbox" id="hotspot" className="toggle" style={{display:'none'}} />
                         <label htmlFor="hotspot" className="lbl"/>
                     </div>
                     <div className="sep"/>

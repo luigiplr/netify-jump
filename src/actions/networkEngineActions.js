@@ -19,7 +19,7 @@ class networkEngineActions {
             'online',
 
             'enabled',
-
+            'disabling',
             'enabling'
         );
     }
@@ -58,10 +58,12 @@ class networkEngineActions {
     disable() {
         this.dispatch();
 
-        this.actions.enabling(false);
+        this.actions.disabling(true);
         return nodeHotspot.disable()
             .then(this.actions.updateAdaptors)
-            .catch(err => {
+            .then(() => {
+                this.actions.disabling(false);
+            }).catch(err => {
                 console.error(err);
             });
     }
