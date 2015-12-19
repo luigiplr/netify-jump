@@ -1,18 +1,22 @@
-##Netify Jump
+### [WIP] Netify Jump
 
 ![Dashboard](https://raw.githubusercontent.com/luigiplr/netify-jump/master/util/UI_preview.png)
 
-### What is Netify Jump?
----------------------------
+##What is Netify Jump?
 
-Netify Jump is a software-based system that does everything your hardware router can do (and some things it can’t). Netify Jump can broadcast WiFi right from your PC, so that any other WiFi-enabled device can get online. 
+Netify Jump is a software-based system that effectivly transforms your computer into a WiFi router. Netify Jump can broadcast WiFi right from your PC, so that any other WiFi-enabled device can get online. In addition using the built in "File Jump" service devices can beam files to and from other connected devices. 
 
-### Why did I make it?
----------------------------
+##Why did I make it?
 
-I feel software such as this should not require large license fees & paid subscriptions for the newest version every year. I belive in open source software and the power that is the community. 
+I feel software such as this should not require large license fees & paid subscriptions for the newest version every year. I believe in open source software and the power that is the community. 
 
-### Getting Started
+## Wheres the beef!
+
+Pre-built binarys & setup files can be found in the [Releases Tab]().
+
+<br>
+
+## Getting Started
 
 - `npm install`
 
@@ -22,7 +26,7 @@ To run the app in development:
 
 Running `npm start` will download and install [Electron](http://electron.atom.io/).
 
-### Building & Release
+## Building & Release
 
 - `npm run release`
 
