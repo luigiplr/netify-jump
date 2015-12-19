@@ -82,8 +82,10 @@ default React.createClass({
                 detail: 'Please review hotspot settings'
             });
 
+        if(!this.state.enabling || !this.state.disabling)
+            return false;
 
-        if(!enabled && !this.state.enabling){
+        if(!enabled){
             localStorage.setItem('hotspot-ssid', this.refs['hotspot-ssid'].value);
             localStorage.setItem('hotspot-key', this.refs['hotspot-key'].value);
 
