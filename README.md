@@ -1,5 +1,12 @@
 #Netify Jump
 
+[![Dependency Status](https://david-dm.org/luigiplr/netify-jump.svg)](https://david-dm.org/luigiplr/netify-jump) 
+[![devDependency Status](https://david-dm.org/luigiplr/netify-jump/dev-status.svg)](https://david-dm.org/luigiplr/netify-jump#info=devDependencies) 
+[![optionalDependency Status](https://david-dm.org/luigiplr/netify-jump/optional-status.svg)](https://david-dm.org/dloa/luigiplr/netify-jump#info=optionalDependencies) 
+[![license](https://img.shields.io/badge/license-GPLv3-brightgreen.svg)](LICENSE) 
+
+
+
 ## What is Netify Jump?
 
 Netify Jump is a software-based system that effectively transforms your computer into a WiFi router and/or repeater. 
