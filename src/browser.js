@@ -18,7 +18,7 @@ app.on('ready', () => {
         width: 960,
         height: screenSize.height * 0.7,
         resizable: true,
-        icon: 'images/icon.png',
+        icon: path.join(__dirname, 'images/icon.png'),
         title: 'Netify Jump',
         center: true,
         frame: false,

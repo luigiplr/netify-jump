@@ -8,6 +8,7 @@ Unicode True
 !include "MUI2.nsh"
 !include "FileFunc.nsh"
 
+
 ;Check file paths
 !if /FILEEXISTS "..\package.json"
     ;File exists!
@@ -46,7 +47,7 @@ Caption "${APP_NAME} ${JUMP_VERSION}"
 BrandingText "${APP_NAME} ${JUMP_VERSION}"
 VIAddVersionKey "ProductName" "${APP_NAME}"
 VIAddVersionKey "ProductVersion" "${JUMP_VERSION}"
-VIAddVersionKey "FileDescriJUMPion" "${APP_NAME} ${JUMP_VERSION} Installer"
+VIAddVersionKey "FileDescription" "${APP_NAME} ${JUMP_VERSION} Installer"
 VIAddVersionKey "FileVersion" "${JUMP_VERSION}"
 VIAddVersionKey "CompanyName" "${COMPANY_NAME}"
 VIAddVersionKey "LegalCopyright" "${APP_URL}"
@@ -74,13 +75,13 @@ RequestExecutionLevel user
 ; ------------------- ;
 ;Define UI settings
 !ifdef WIN_PATHS
-    !define MUI_UI_HEADERIMAGE_RIGHT "images\JUMP_icon.ico"
-    !define MUI_ICON "images\JUMP_icon.ico"
-    !define MUI_UNICON "images\JUMP_icon.ico"
+    !define MUI_UI_HEADERIMAGE_RIGHT "..\images\JUMP_icon.ico"
+    !define MUI_ICON "..\images\JUMP_icon.ico"
+    !define MUI_UNICON "..\images\JUMP_icon.ico"
 !else
-    !define MUI_UI_HEADERIMAGE_RIGHT "images/JUMP_icon.ico"
-    !define MUI_ICON "images/JUMP_icon.ico"
-    !define MUI_UNICON "images/JUMP_icon.ico"
+    !define MUI_UI_HEADERIMAGE_RIGHT "../images/JUMP_icon.ico"
+    !define MUI_ICON "../images/JUMP_icon.ico"
+    !define MUI_UNICON "../images/JUMP_icon.ico"
 !endif
 !define MUI_ABORTWARNING
 !define MUI_FINISHPAGE_LINK "${APP_URL}"
@@ -399,7 +400,7 @@ Section
     WriteRegDWORD HKCU "${UNINSTALL_KEY}" "EstimatedSize" "$0"
     WriteRegStr HKCU "${UNINSTALL_KEY}" "DisplayName" "${APP_NAME}"
     WriteRegStr HKCU "${UNINSTALL_KEY}" "DisplayVersion" "${JUMP_VERSION}"
-    WriteRegStr HKCU "${UNINSTALL_KEY}" "DisplayIcon" "$INSTDIR\resources\JUMP_icon.ico"
+    WriteRegStr HKCU "${UNINSTALL_KEY}" "DisplayIcon" "$INSTDIR\resources\app\images\JUMP_icon.ico"
     WriteRegStr HKCU "${UNINSTALL_KEY}" "Publisher" "${COMPANY_NAME}"
     WriteRegStr HKCU "${UNINSTALL_KEY}" "UninstallString" "$INSTDIR\Uninstall.exe"
     WriteRegStr HKCU "${UNINSTALL_KEY}" "InstallString" "$INSTDIR"
@@ -499,5 +500,5 @@ FunctionEnd
 ;  Desktop Shortcut  ;
 ; ------------------ ;
 Function finishpageaction
-    CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\Netify Jump.exe" "" "$INSTDIR\resources\JUMP_icon.ico" "" "" "" "${APP_NAME} ${JUMP_VERSION}"
+    CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\Netify Jump.exe" "" "$INSTDIR\resources\app\images\JUMP_icon.ico" "" "" "" "${APP_NAME} ${JUMP_VERSION}"
 FunctionEnd

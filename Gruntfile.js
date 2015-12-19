@@ -28,7 +28,7 @@ module.exports = function(grunt) {
                     platform: 'win32',
                     arch: arch,
                     prune: true,
-                    asar: true
+                    asar: false
                 }
             }
         },
@@ -133,19 +133,19 @@ module.exports = function(grunt) {
             }
         },
         clean: {
-            unusedWin: ['dist/<%= BASENAME %>-win32-ia32/resources/default_app'],
+            unusedWin: ['dist/' + BASENAME + '-win32-' + arch + '/resources/default_app'],
             release: ['build/', 'dist/'],
         },
         compress: {
             windows: {
                 options: {
-                    archive: './dist/' + BASENAME + '-' + packagejson.version + '-Windows-Alpha.zip',
+                    archive: './dist/' + BASENAME + '-' + packagejson.version + '-Windows-' + arch + '.zip',
                     mode: 'zip'
                 },
                 files: [{
                     expand: true,
                     dot: true,
-                    cwd: './dist/<%= BASENAME %>-win32-ia32',
+                    cwd: './dist/' + BASENAME + '-win32-' + arch,
                     src: '**/*'
                 }]
             }
