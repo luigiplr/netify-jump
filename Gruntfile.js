@@ -24,7 +24,7 @@ module.exports = function(grunt) {
                     name: BASENAME,
                     dir: 'build/',
                     out: 'dist',
-                    version: packagejson.optionalDependencies['electron-prebuilt'],
+                    version: packagejson['electron-version'],
                     platform: 'win32',
                     arch: arch,
                     prune: true,
@@ -133,8 +133,7 @@ module.exports = function(grunt) {
             }
         },
         clean: {
-            unusedWin: ['dist/' + BASENAME + '-win32-' + arch + '/resources/default_app'],
-            release: ['build/', 'dist/'],
+            release: ['build/', 'dist/']
         },
         compress: {
             windows: {
@@ -181,7 +180,7 @@ module.exports = function(grunt) {
 
 
     if (process.platform === 'win32') {
-        grunt.registerTask('release', ['clean:release', 'babel', 'sass', 'copy:release', 'electron:windows', 'clean:unusedWin', 'copy:releaseWin', 'compress:windows']);
+        grunt.registerTask('release', ['clean:release', 'babel', 'sass', 'copy:release', 'electron:windows', 'copy:releaseWin', 'compress:windows']);
     }
 
     process.on('SIGINT', function() {
