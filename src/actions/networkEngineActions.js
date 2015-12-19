@@ -13,7 +13,6 @@ from 'events'
 var statsUpdateEmitter = new EventEmitter();
 
 var statsUpdateQueue = async.queue((task, next) => {
-    console.log('refreshing')
     nodeHotspot.stats()
         .then(info => {
             statsUpdateEmitter.emit('update', info);

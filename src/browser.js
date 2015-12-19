@@ -67,6 +67,13 @@ app.on('ready', () => {
         mainWindow.minimize();
     });
 
+    ipcMain.on('app:toggleDevTools', () => {
+        mainWindow.show();
+        mainWindow.toggleDevTools();
+        mainWindow.focus();
+        console.info('Developer Tools Toggled.');
+    });
+
     ipcMain.on('app:close', app.quit);
 
 });

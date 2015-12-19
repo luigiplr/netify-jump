@@ -4,17 +4,26 @@ import {
     RouteContext
 }
 from 'react-router';
+import {
+    mouseTrap
+} from 'react-mousetrap';
+import {
+    ipcRenderer
+}
+from 'electron';
 
 import Header from './Header';
 import NetworkActions from '../actions/networkEngineActions';
 
-export
-default React.createClass({
+const Framework = React.createClass({
 
     mixins: [PureRenderMixin, RouteContext],
 
 
     componentWillMount() {
+        this.props.bindShortcut('ctrl+d', () => {
+            ipcRenderer.send('app:toggleDevTools');
+        });
         NetworkActions.checkOnline();
         NetworkActions.updateAdaptors();
     },
@@ -28,3 +37,7 @@ default React.createClass({
         );
     }
 });
+
+
+export
+default mouseTrap(Framework)
