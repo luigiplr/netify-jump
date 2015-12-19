@@ -17,7 +17,7 @@ default React.createClass({
             <div className="bottom-bar">
             	<i onClick={this.handelOpenURL.bind(this, 'https://github.com/luigiplr/netify-jump')} className="ion-social-github"/>
             	<i onClick={this.handelOpenURL.bind(this, 'https://twitter.com/luigiplr')} className="ion-social-twitter"/>
-                <p className="version">v. {Package.version} {'"'+Package['release-name']+'"'}</p>
+                <p onClick={this.handelOpenURL.bind(this, 'https://github.com/luigiplr/netify-jump/releases')} className="version">v. {Package.version}</p>
         	</div>
         );
     }
