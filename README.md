@@ -12,7 +12,7 @@ I feel software such as this should not require large license fees & paid subscr
 
 ## Where's the beef!
 
-Pre-built binarys & setup files can be found in the [Releases Tab]().
+Pre-built binarys & setup files can be found in the [Releases Tab](https://github.com/luigiplr/netify-jump/releases).
 
 <br>
 
