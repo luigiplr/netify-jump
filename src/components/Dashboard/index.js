@@ -43,9 +43,7 @@ default React.createClass({
         }
     },
     render() {
-
-        console.log(this.state.isCompatible)
-
+        
         return (
             <div className="main">
 

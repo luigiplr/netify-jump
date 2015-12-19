@@ -24,7 +24,7 @@ default React.createClass({
         return {
             online: NetworkStore.getState().online,
             isCompatible: NetworkStore.getState().isCompatible,
-            info: NetworkStore.getState().info,
+            hotspot: NetworkStore.getState().hotspot,
             adaptors: NetworkStore.getState().adaptors
         };
     },
@@ -45,16 +45,17 @@ default React.createClass({
         if (this.isMounted()) {
             this.setState({
                 isCompatible: NetworkStore.getState().isCompatible,
-                info: NetworkStore.getState().info,
+                hotspot: NetworkStore.getState().hotspot,
                 adaptors: NetworkStore.getState().adaptors
             });
         }
     },
 
+
     render(Running = false) {
 
         if(this.state.isCompatible !== 'checking' && this.state.isCompatible){
-            Running = (this.state.info.Status === 'Started') ? true : false;
+            Running = (this.state.hotspot.Status === 'Started') ? true : false;
             
             if(Running){
                 var MAC = _.result(_.find(this.state.adaptors, adaptor => {
@@ -95,14 +96,14 @@ default React.createClass({
                             <div>
                                 <div className="sep"/>
 
-                                <span>{parseInt(this.state.info['Max number of clients'])}</span>
+                                <span>{parseInt(this.state.hotspot['Max number of clients'])}</span>
                                 <p>Max number of clients</p>
                             </div>
                             <If test={(this.state.isCompatible !== 'checking' && this.state.isCompatible && Running)}>
                                 <div>
                                     <div className="sep"/>
 
-                                    <span>{parseInt(this.state.info['Number of clients'])}</span>
+                                    <span>{parseInt(this.state.hotspot['Number of clients'])}</span>
                                     <p>Connected clients</p>
                                 </div>
                             </If>

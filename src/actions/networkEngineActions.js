@@ -33,13 +33,35 @@ class networkEngineActions {
         }, 1000);
     }
 
+
+    enable(ssid, key) {
+        nodeHotspot.enable({
+            ssid: ssid,
+            password: key,
+            force: true
+        }).then(() => {
+
+            this.actions.updateAdaptors();
+
+        }).catch(err => {
+            console.error(err);
+        });
+
+    }
+
+
+    disable() {
+        nodeHotspot.disable()
+            .then(this.actions.updateAdaptors).catch(err => {
+                console.error(err);
+            })
+
+    }
+
+
     updateAdaptors() {
         nodeHotspot.stats()
-            .then(Adaptors => {
-                this.actions.isCompatible(Adaptors.compatible);
-                this.actions.adaptors(Adaptors.networkAdaptors);
-                this.actions.update(Adaptors);
-            })
+            .then(this.actions.update)
             .catch(error => {
                 console.error(error)
             })

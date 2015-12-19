@@ -8,6 +8,8 @@ class NetworkEngineStore {
     constructor() {
         this.bindActions(networkEngineActions);
 
+        this.enabling = false;
+
         this.online = 'checking';
         this.isCompatible = 'checking';
         this.adaptors = [];
@@ -17,9 +19,17 @@ class NetworkEngineStore {
 
     }
 
+    onEnabling(enabling) {
+        this.setState({
+            enabling: enabling
+        });
+    }
+
     onUpdate(info) {
         this.setState({
-            info: info
+            hotspot: _.omit(info, ['compatible', 'networkAdaptors', 'connectedAdaptor']),
+            isCompatible: info.compatible,
+            adaptors: info.networkAdaptors
         });
         console.log(this)
     }

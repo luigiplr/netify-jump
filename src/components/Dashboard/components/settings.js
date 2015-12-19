@@ -21,8 +21,8 @@ default React.createClass({
     getInitialState() {
         return {
             isCompatible: NetworkStore.getState().isCompatible,
-            info: NetworkStore.getState().info,
             hotspot: NetworkStore.getState().hotspot,
+            enabling: NetworkStore.getState().enabling
         };
     },
 
@@ -42,19 +42,33 @@ default React.createClass({
         if (this.isMounted()) {
             this.setState({
                 isCompatible: NetworkStore.getState().isCompatible,
-                info: NetworkStore.getState().info,
-                hotspot: NetworkStore.getState().hotspot
+                hotspot: NetworkStore.getState().hotspot,
+                enabling: NetworkStore.getState().enabling
             });
         }
     },
 
 
+    handelToggle(event){
+        var enabled = (this.state.hotspot.Status === 'Started') ? true : false;
+
+        if(!enabled && !this.state.enabling){
+            NetworkActions.enabling(true);
+            NetworkActions.enable(this.refs['hotspot-ssid'].value, this.refs['hotspot-key'].value);
+        }else{
+            NetworkActions.enabling(false);
+            NetworkActions.disable();
+
+        }
+
+       
+    },
 
     render() {
 
-        
+        var running = (this.state.hotspot.Status === 'Started') ? true : false;
 
-        
+
         return (
             <div className="section" style={{marginTop: '0px', height: '15px', width: '300px', right: '245px'}}>
                 <h2>Settings</h2>
@@ -64,18 +78,18 @@ default React.createClass({
                     <div className="sep"/>
                     <span>Hotspot Enabled</span>
 
-                    <div className="toggler">
-                        <input type="checkbox" id="hotspot" className="toggle" style={{display:'none'}} />
-                        <label htmlFor="hotspot" className="lbl"></label>
+                    <div onClick={this.handelToggle} className="toggler">
+                        <input ref="hotspot-enabled" checked={this.state.enabling ? true : running} type="checkbox" id="hotspot" className="toggle" style={{display:'none'}} />
+                        <label htmlFor="hotspot" className="lbl"/>
                     </div>
                     <div className="sep"/>
 
                     <p className="input" >Hotspot SSID:</p>
-                    <input defaultValue={this.state.info['SSID name'] || ''} className="text" />
+                    <input ref="hotspot-ssid" defaultValue={this.state.hotspot['SSID name'] || ''} className="text" />
                     <div className="sep"/>
 
                     <p className="input" >Hotspot Password:</p>
-                    <input className="text"  type="password" />
+                    <input ref="hotspot-key"  className="text"  type="password" />
                     <div className="sep"/>
                 </div>
 
