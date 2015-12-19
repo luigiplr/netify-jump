@@ -14,6 +14,7 @@ from 'electron';
 
 import Header from './Header';
 import NetworkActions from '../actions/networkEngineActions';
+import UpdateActions from '../actions/updateActions';
 
 const Framework = React.createClass({
 
@@ -26,6 +27,7 @@ const Framework = React.createClass({
         });
         NetworkActions.checkOnline();
         NetworkActions.updateAdaptors();
+
     },
 
     render() {
