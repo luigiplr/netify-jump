@@ -82,7 +82,7 @@ default React.createClass({
                 detail: 'Please review hotspot settings'
             });
 
-        if(!this.state.enabling || !this.state.disabling)
+        if(this.state.enabling || this.state.disabling)
             return false;
 
         if(!enabled){
