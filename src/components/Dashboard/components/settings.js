@@ -49,19 +49,16 @@ default React.createClass({
     },
 
 
-    handelToggle(event){
+    handelToggle(){
+
         var enabled = (this.state.hotspot.Status === 'Started') ? true : false;
 
         if(!enabled && !this.state.enabling){
-            NetworkActions.enabling(true);
             NetworkActions.enable(this.refs['hotspot-ssid'].value, this.refs['hotspot-key'].value);
         }else{
-            NetworkActions.enabling(false);
             NetworkActions.disable();
-
         }
 
-       
     },
 
     render() {
@@ -78,8 +75,8 @@ default React.createClass({
                     <div className="sep"/>
                     <span>Hotspot Enabled</span>
 
-                    <div onClick={this.handelToggle} className="toggler">
-                        <input ref="hotspot-enabled" checked={this.state.enabling ? true : running} type="checkbox" id="hotspot" className="toggle" style={{display:'none'}} />
+                    <div className="toggler">
+                        <input onClick={this.handelToggle} ref="hotspot-enabled" checked={this.state.enabling ? true : running} type="checkbox" id="hotspot" className="toggle" style={{display:'none'}} />
                         <label htmlFor="hotspot" className="lbl"/>
                     </div>
                     <div className="sep"/>

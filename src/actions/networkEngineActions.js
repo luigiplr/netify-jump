@@ -35,14 +35,19 @@ class networkEngineActions {
 
 
     enable(ssid, key) {
-        nodeHotspot.enable({
+        this.dispatch();
+
+        this.actions.enabling(true);
+        return nodeHotspot.enable({
             ssid: ssid,
             password: key,
             force: true
-        }).then(() => {
-
-            this.actions.updateAdaptors();
-
+        }).then(() => {;
+            this.actions.updateAdaptors()
+                .then(() => {
+                    this.actions.enabled(true);
+                    this.actions.enabling(false);
+                });
         }).catch(err => {
             console.error(err);
         });
@@ -51,20 +56,25 @@ class networkEngineActions {
 
 
     disable() {
-        nodeHotspot.disable()
-            .then(this.actions.updateAdaptors).catch(err => {
-                console.error(err);
-            })
+        this.dispatch();
 
+        this.actions.enabling(false);
+        return nodeHotspot.disable()
+            .then(this.actions.updateAdaptors)
+            .catch(err => {
+                console.error(err);
+            });
     }
 
 
     updateAdaptors() {
-        nodeHotspot.stats()
+        this.dispatch();
+
+        return nodeHotspot.stats()
             .then(this.actions.update)
             .catch(error => {
                 console.error(error)
-            })
+            });
     }
 
 }

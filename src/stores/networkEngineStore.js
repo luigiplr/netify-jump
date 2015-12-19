@@ -19,7 +19,9 @@ class NetworkEngineStore {
 
     }
 
-    onEnabling(enabling) {
+    onEnabling(enabling = true) {
+        console.log(enabling)
+
         this.setState({
             enabling: enabling
         });
@@ -31,7 +33,6 @@ class NetworkEngineStore {
             isCompatible: info.compatible,
             adaptors: info.networkAdaptors
         });
-        console.log(this)
     }
 
     onAdaptors(adaptors) {
@@ -46,7 +47,7 @@ class NetworkEngineStore {
         });
     }
 
-    onOnline(status) {
+    onOnline(status = true) {
         this.setState({
             online: status
         });
