@@ -347,3 +347,24 @@
     background: #00B20A;
     box-shadow: 0 0 10px rgba(0, 178, 10, 0.48);
 }
+
+
+.main .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    height: 25px;
+    width: 100vw;
+}
+
+.main .bottom-bar i {
+    float: right;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.94);
+    margin-right: 10px;
+    font-size: 20px;
+    transition: opacity 200ms ease-in-out;
+}
+
+.main .bottom-bar i:hover {
+    opacity: 0.7;
+}

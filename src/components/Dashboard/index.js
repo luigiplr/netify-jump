@@ -5,6 +5,7 @@ import Status from './components/status';
 import PC from './components/pc';
 import Settings from './components/settings';
 import WIFI from './components/wifi';
+import BottomBar from './components/bottom';
 
 
 import NetworkStore from '../../stores/networkEngineStore';
@@ -43,7 +44,7 @@ default React.createClass({
         }
     },
     render() {
-        
+
         return (
             <div className="main">
 
@@ -89,7 +90,8 @@ default React.createClass({
                 <Status type="full" style={{left: '241px', marginTop: '-205px'}} checked={true} text="File Jump"/>
                 <div className="line vertical" style={{height: '15px', top: '-43px', left: '249px'}} />
                 <object width="55px" type="image/svg+xml" data="images/remote_storage_cloud_cloud_storage_folder.svg" className="jump"/>
-
+                
+                <BottomBar />
             </div>
         );
     }
