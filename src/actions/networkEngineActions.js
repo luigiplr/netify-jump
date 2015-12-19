@@ -8,11 +8,11 @@ import alt from '../alt';
 import {
     EventEmitter
 }
-from 'events'
+from 'events';
 
-var statsUpdateEmitter = new EventEmitter();
+const statsUpdateEmitter = new EventEmitter();
 
-var statsUpdateQueue = async.queue((task, next) => {
+const hotspotUpdateQueue = async.queue((task, next) => {
     nodeHotspot.stats()
         .then(info => {
             statsUpdateEmitter.emit('update', info);
@@ -24,6 +24,15 @@ var statsUpdateQueue = async.queue((task, next) => {
         });
 });
 
+const internetUpdateQueue = async.queue((task, next) => {
+    _.delay(() => {
+        online((err, status) => {
+        	internetUpdateQueue.push(true);
+            statsUpdateEmitter.emit('internet', status);
+            process.nextTick(next);
+        });
+    }, 1000);
+});
 
 
 
@@ -45,15 +54,22 @@ class networkEngineActions {
         );
     }
 
+    refreshInternet() {
+        this.dispatch();
+
+        internetUpdateQueue.push(true);
+        statsUpdateEmitter.on('internet', status => {
+            this.actions.online(status)
+        });
+    }
+
     refreshHotspot() {
         this.dispatch();
-        if (!statsUpdateQueue.idle())
+        if (!hotspotUpdateQueue.idle())
             return false;
 
-        statsUpdateQueue.push(true);
-
+        hotspotUpdateQueue.push(true);
         statsUpdateEmitter.once('update', this.actions.update);
-
     }
 
 
@@ -84,7 +100,6 @@ class networkEngineActions {
         }).catch(err => {
             console.error(err);
         });
-
     }
 
 

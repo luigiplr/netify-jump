@@ -44,9 +44,9 @@ default React.createClass({
             });
 
             _.defer(() =>{
-                if(this.state.isCompatible && this.state.online && this.state.hotspot.Status && this.state.hotspot.Status === 'Started')
+                if(this.state.isCompatible && this.state.online && this.state.hotspot.Status && this.state.hotspot.Status === 'Started'){
                     NetworkActions.refreshHotspot();
-                NetworkActions.checkOnline();
+                }
             });
 
         }

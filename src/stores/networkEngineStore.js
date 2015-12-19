@@ -22,7 +22,7 @@ class NetworkEngineStore {
 
     }
 
-    onDisabling(dis = true) {
+    onDisabling(dis) {
         this.setState({
             enabling: false,
             disabling: dis
@@ -35,7 +35,7 @@ class NetworkEngineStore {
         });
     }
 
-    onEnabling(enabling = true) {
+    onEnabling(enabling) {
         this.setState({
             disabling: false,
             enabling: enabling
@@ -62,7 +62,7 @@ class NetworkEngineStore {
         });
     }
 
-    onOnline(status = true) {
+    onOnline(status) {
         this.setState({
             online: status
         });
