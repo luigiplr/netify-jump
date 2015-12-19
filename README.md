@@ -8,9 +8,9 @@ Netify Jump is a software-based system that effectivly transforms your computer 
 
 ##Why did I make it?
 
-I feel software such as this should not require large license fees & paid subscriptions for the newest version every year. I believe in open source software and the power that is the community. 
+I feel software such as this should not require large license fees & paid subscriptions for the newest version every year. I believe in open source software and the power that is the community. (I also needed to make a hotspot)
 
-## Wheres the beef!
+## Where's the beef!
 
 Pre-built binarys & setup files can be found in the [Releases Tab]().
 
