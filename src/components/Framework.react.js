@@ -18,6 +18,7 @@ import Header from './Header';
 import NetworkActions from '../actions/networkEngineActions';
 import NetworkStore from '../stores/networkEngineStore';
 import updaterActions from '../actions/updateActions';
+import analyticsActions from '../actions/analyticsActions';
 
 const Framework = React.createClass({
 
@@ -39,7 +40,6 @@ const Framework = React.createClass({
 
     componentDidMount() {
         NetworkActions.refreshInternet();
-
         _.defer(NetworkActions.updateAdaptors);
     },
 
@@ -58,6 +58,7 @@ const Framework = React.createClass({
                     this.setState({
                         updateChecked: true
                     });
+                    analyticsActions.send('dashboard');
                     updaterActions.check();
                     NetworkStore.unlisten(this.update);
                 }

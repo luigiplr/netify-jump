@@ -7,6 +7,7 @@ import child_process from 'child_process';
 import _ from 'lodash';
 import url from 'url';
 import notifier from 'node-notifier';
+import analyticsActions from '../actions/analyticsActions';
 import {
     app
 }
@@ -80,6 +81,7 @@ const notifyUpdate = (updatePath, version) => {
 }
 
 const installUpdate = updatePath => {
+    analyticsActions.event(['update', 'installed']);
     switch (process.platform) {
         case 'win32':
             exec(updatePath, ['--update'], {
