@@ -119,6 +119,7 @@ const exec = (execPath, args = [], options = {}) => {
 module.exports = {
     check(annon) {
         console.info('Checking for updates for client v.' + version);
+        analyticsActions.event(['update', 'check', version]);
         getJson('https://api.github.com/repos/luigiplr/netify-jump/releases/latest' + (annon ? '' : '?client_id=1ea858d6adf0ab363200&client_secret=e027441f3392b790aa857d2267b25684af5370e6'))
             .then(json => {
 

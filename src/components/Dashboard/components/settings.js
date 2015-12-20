@@ -90,9 +90,7 @@ default React.createClass({
             localStorage.setItem('hotspot-ssid', this.refs['hotspot-ssid'].value);
             localStorage.setItem('hotspot-key', this.refs['hotspot-key'].value);
             NetworkActions.enable(this.refs['hotspot-ssid'].value, this.refs['hotspot-key'].value);
-            analyticsActions.event(['hotspot', 'enabled']);
         } else {
-            analyticsActions.event(['hotspot', 'disabled']);
             NetworkActions.disable();
         }
     },
