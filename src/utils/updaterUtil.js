@@ -19,6 +19,9 @@ import {
     version
 }
 from '../../package.json';
+import updaterActions from '../actions/updateActions';
+
+
 
 const appUpdateDir = path.join(app.getPath('userData'), 'update_cache');
 
@@ -35,8 +38,10 @@ const download = (url, filename, size, version) => {
     });
 
     try {
-        if (fs.statSync(outPath).size === size)
+        if (fs.statSync(outPath).size === size) {
+            updaterActions.updateAvailable(outPath);
             return notifyUpdate(outPath, version);
+        }
     } catch (e) {
 
     }
@@ -54,6 +59,8 @@ const download = (url, filename, size, version) => {
         .pipe(fs.createWriteStream(outPath))
         .on('finish', () => {
             console.info('Update successfully downloaded to', outPath);
+
+            updaterActions.updateAvailable(outPath);
             notifyUpdate(outPath, version);
         });
 
@@ -61,20 +68,22 @@ const download = (url, filename, size, version) => {
 
 
 const notifyUpdate = (updatePath, version) => {
+    notifier.notify({
+        title: 'Netify Jump ' + version + ' update available',
+        message: 'Click to install',
+        icon: path.join(__dirname, '../../images/icon.png'),
+        sound: true,
+        wait: true
+    });
+
+    notifier.on('click', () => installUpdate(updatePath));
+}
+
+const installUpdate = updatePath => {
     switch (process.platform) {
         case 'win32':
-            notifier.notify({
-                title: 'Netify Jump ' + version + ' update available',
-                message: 'Click to install',
-                icon: path.join(__dirname, '../../images/icon.png'),
-                sound: true,
-                wait: true
-            });
-
-            notifier.on('click', () => {
-                exec(updatePath, ['--update'], {
-                    detached: true
-                });
+            exec(updatePath, ['--update'], {
+                detached: true
             });
             break;
     }
@@ -110,10 +119,10 @@ module.exports = {
         console.info('Checking for updates for client v.' + version);
         getJson('https://api.github.com/repos/luigiplr/netify-jump/releases/latest')
             .then(json => {
-                /*
+                
                 if (version === json.tag_name || json.prerelease)
                     return console.info('No new updates available');
-*/
+
                 var candidate = false;
 
                 _.forEach(json.assets, asset => {
@@ -139,5 +148,6 @@ module.exports = {
             .catch(err => {
                 console.error(err)
             })
-    }
+    },
+    install: installUpdate
 }

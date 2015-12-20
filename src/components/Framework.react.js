@@ -17,7 +17,7 @@ from 'electron';
 import Header from './Header';
 import NetworkActions from '../actions/networkEngineActions';
 import NetworkStore from '../stores/networkEngineStore';
-import updaterUtil from '../utils/updaterUtil';
+import updaterActions from '../actions/updateActions';
 
 const Framework = React.createClass({
 
@@ -58,7 +58,7 @@ const Framework = React.createClass({
                     this.setState({
                         updateChecked: true
                     });
-                    updaterUtil.check();
+                    updaterActions.check();
                     NetworkStore.unlisten(this.update);
                 }
             });
