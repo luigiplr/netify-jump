@@ -16,7 +16,6 @@ class GAActions {
     }
 
     event(event = []) {
-        console.log(event)
         ga.event(...event).send()
     }
 }
