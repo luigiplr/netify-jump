@@ -20,7 +20,7 @@ import {
 }
 from '../../package.json';
 import updaterActions from '../actions/updateActions';
-
+var tryedAgain = false;
 
 
 const appUpdateDir = path.join(app.getPath('userData'), 'update_cache');
@@ -100,7 +100,7 @@ const getJson = url => {
             if (!error && response.statusCode == 200)
                 resolve(body)
             else
-                reject('something went Very Wong:' + error);
+                reject('something went Very Wong:' + error + '\nCODE:' + response.statusCode + '\nBODY:' + JSON.stringify(body));
         });
     })
 }
@@ -115,11 +115,11 @@ const exec = (execPath, args = [], options = {}) => {
 }
 
 module.exports = {
-    check() {
+    check(annon) {
         console.info('Checking for updates for client v.' + version);
-        getJson('https://api.github.com/repos/luigiplr/netify-jump/releases/latest')
+        getJson('https://api.github.com/repos/luigiplr/netify-jump/releases/latest' + (annon ? '' : '?client_id=1ea858d6adf0ab363200&client_secret=e027441f3392b790aa857d2267b25684af5370e6'))
             .then(json => {
-                
+
                 if (version === json.tag_name || json.prerelease)
                     return console.info('No new updates available');
 
@@ -146,7 +146,11 @@ module.exports = {
 
             })
             .catch(err => {
-                console.error(err)
+                console.log(err);
+                if (!tryedAgain) {
+                    tryedAgain = true;
+                    _.delay(this.check.bind(this, true), 1000)
+                }
             })
     },
     install: installUpdate
