@@ -19,8 +19,9 @@ I feel software such as this should not require large license fees & paid subscr
 
 ### Requirements
 
-Netify Jump requires a computer running Windows 7 or above with a wifi adaptor and/or dongle. <br>
+ - PC running Windows 7 or above with a wifi adaptor and/or dongle. <br>
 Mac & Linux support is in the works and coming soon!
+ - English set as system language (alternative language support in next release)
 
 ### Screenshots
 
