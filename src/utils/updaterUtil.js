@@ -1,51 +1,143 @@
 import Promise from 'bluebird';
-import needle from 'needle';
 import path from 'path';
+import fs from 'fs';
+import request from 'request';
+import progress from 'request-progress';
+import child_process from 'child_process';
+import _ from 'lodash';
+import url from 'url';
 import notifier from 'node-notifier';
-import shell from 'shell';
 import {
-	version
+    app
+}
+from 'remote';
+import {
+    ipcRenderer
+}
+from 'electron';
+import {
+    version
 }
 from '../../package.json';
 
+const appUpdateDir = path.join(app.getPath('userData'), 'update_cache');
+
+
+if (!fs.existsSync(appUpdateDir))
+    fs.mkdirSync(appUpdateDir);
+
+const download = (url, filename, size, version) => {
+    var outPath = path.join(appUpdateDir, filename);
+
+    fs.readdirSync(appUpdateDir).filter(file => {
+        if (file !== filename)
+            fs.unlink(path.join(appUpdateDir, file))
+    });
+
+    try {
+        if (fs.statSync(outPath).size === size)
+            return notifyUpdate(outPath, version);
+    } catch (e) {
+
+    }
+
+    progress(request(url), {
+        throttle: 2000,
+        delay: 1000
+    })
+        .on('progress', state => {
+            console.log('Update download percent:', state.percent + '%', '\nETA:', state.eta.toString(), 'seconds');
+        })
+        .on('error', err => {
+            console.error('Error downloading update!', err);
+        })
+        .pipe(fs.createWriteStream(outPath))
+        .on('finish', () => {
+            console.info('Update successfully downloaded to', outPath);
+            notifyUpdate(outPath, version);
+        });
+
+}
+
+
+const notifyUpdate = (updatePath, version) => {
+    switch (process.platform) {
+        case 'win32':
+            notifier.notify({
+                title: 'Netify Jump ' + version + ' update available',
+                message: 'Click to install',
+                icon: path.join(__dirname, '../../images/icon.png'),
+                sound: true,
+                wait: true
+            });
+
+            notifier.on('click', () => {
+                exec(updatePath, ['--update'], {
+                    detached: true
+                });
+            });
+            break;
+    }
+}
+
 const getJson = url => {
-	return new Promise((resolve, reject) => {
-		needle.get(url, {
-			json: true
-		}, (err, resp) => {
-			if (err || !resp.body)
-				return reject('something went Very Wong:' + err);
-			resolve(resp.body)
-		});
-	})
+    return new Promise((resolve, reject) => {
+        request(url, {
+            json: true,
+            headers: {
+                'User-Agent': 'Netify Jump v.' + version
+            }
+        }, (error, response, body) => {
+            if (!error && response.statusCode == 200)
+                resolve(body)
+            else
+                reject('something went Very Wong:' + error);
+        });
+    })
+}
+
+const exec = (execPath, args = [], options = {}) => {
+    child_process.exec(execPath + ' ' + args.join(' '), options, (error, stdout, stderr) => {
+        if (error) {
+            console.error(stderr);
+        }
+        console.log(stdout);
+    });
 }
 
 module.exports = {
-	check() {
-		console.info('Checking for updates for client v.' + version);
-		getJson('https://api.github.com/repos/luigiplr/netify-jump/releases/latest')
-			.then(json => {
-				if (version === json.tag_name)
-					return console.info('No new updates available');
+    check() {
+        console.info('Checking for updates for client v.' + version);
+        getJson('https://api.github.com/repos/luigiplr/netify-jump/releases/latest')
+            .then(json => {
+                /*
+                if (version === json.tag_name || json.prerelease)
+                    return console.info('No new updates available');
+*/
+                var candidate = false;
 
-				console.info('New update available v.' + json.tag_name);
+                _.forEach(json.assets, asset => {
+                    let assetParsed = path.parse(asset.name).name.split('-');
+                    if (_.isEqual({
+                        platform: (assetParsed[2].toLowerCase() === ('windows' || 'win32')) ? 'win32' : 'darwin',
+                        arch: assetParsed[3],
+                        installer: (path.parse(asset.name).ext === ('.exe' || '.dmg')) ? true : false
+                    }, {
+                        platform: process.platform,
+                        arch: process.arch,
+                        installer: true
+                    }))
+                        candidate = asset;
+                });
 
-				notifier.notify({
-					title: 'Netify Jump',
-					message: 'v.' + json.tag_name + '  Update available',
-					icon: path.join(__dirname, '../../images/icon.png'),
-					sound: true,
-					wait: true
-				});
+                if (candidate) {
+                    console.info('New update available v.' + json.tag_name);
+                    download(candidate.browser_download_url, candidate.name, candidate.size, 'v.' + json.tag_name);
+                }
 
-				notifier.on('click', () => {
-					shell.openExternal(json.html_url);
-				});
-			})
-			.catch(err => {
-				console.error(err)
-			})
-	}
-
-
+            })
+            .catch(err => {
+                console.error(err)
+            })
+    }
 }
