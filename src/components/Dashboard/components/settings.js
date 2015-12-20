@@ -77,7 +77,7 @@ default React.createClass({
 
         var enabled = (this.state.hotspot.Status === 'Started') ? true : false;
 
-        if(!this.state.SSIDOK || !this.state.passwordOK)
+        if(!this.state.SSIDOK || !this.state.passwordOK && !enabled)
             return this.showError({
                 message: 'Invalid hotspot SSID or password',
                 detail: 'Please review hotspot settings'
