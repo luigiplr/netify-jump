@@ -10,13 +10,18 @@ const ga = analytics('UA-67206995-6');
 
 localStorage.setItem('ga-user-id', USER_ID);
 
+if (process.env.NODE_ENV === 'development')
+    ga.pageview('app/development').send();
+
 class GAActions {
     send(path) {
-        ga.pageview('app/' + path).send();
+        if (process.env.NODE_ENV !== 'development')
+            ga.pageview('app/' + path).send();
     }
 
     event(event = []) {
-        ga.event(...event).send()
+        if (process.env.NODE_ENV !== 'development')
+            ga.event(...event).send()
     }
 }
 
