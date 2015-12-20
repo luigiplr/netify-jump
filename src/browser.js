@@ -13,9 +13,8 @@ var minimzeInfoShown = false;
 
 
 app.on('ready', () => {
-    const screenSize = require('screen').getPrimaryDisplay().workAreaSize;
 
-    var mainWindow = new BrowserWindow({
+    const mainWindow = new BrowserWindow({
         minWidth: 930,
         minHeight: 600,
         width: 960,
@@ -28,7 +27,7 @@ app.on('ready', () => {
         show: false
     });
 
-    var appIcon = tray({
+    const appIcon = tray({
         close: app.quit,
         show: () => {
             mainWindow.show();
