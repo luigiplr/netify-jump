@@ -2,7 +2,7 @@
   "name": "netify_jump",
   "version": "0.0.4",
   "author": "Luigi Poole",
-  "description": "Netify Jump is a software-based system that effectively transforms your computer into a WiFi router and/or repeater.",
+  "description": "[WIP] Netify Jump is a software-based system that effectively transforms your computer into a WiFi router and/or repeater.",
   "homepage": "https://github.com/luigiplr/netify-jump",
   "main": "js/browser.js",
   "repository": {
