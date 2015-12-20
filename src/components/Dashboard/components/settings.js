@@ -8,7 +8,6 @@ from 'remote';
 
 import NetworkStore from '../../../stores/networkEngineStore';
 import NetworkActions from '../../../actions/networkEngineActions';
-import analyticsActions from '../../../actions/analyticsActions';
 
 let If = React.createClass({
     render() {
