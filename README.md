@@ -17,7 +17,7 @@ Netify Jump can broadcast WiFi right from your PC, so that any other WiFi-enable
 
 I feel software such as this should not require large license fees & paid subscriptions for the newest version every year. I believe in open source software and the power that is the community. (I also needed to make a hotspot)
 
-### Can i run it?
+### Requirements
 
 Netify Jump requires a computer running Windows 7 or above with a wifi adaptor and/or dongle. <br>
 Mac & Linux support is in the works and coming soon!
