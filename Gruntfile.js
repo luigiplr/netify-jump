@@ -80,7 +80,8 @@ module.exports = function(grunt) {
             dist: {
                 files: {
                     'build/css/main.css': 'styles/src/main.scss',
-                    'build/css/vender.css': 'styles/vender/**/*.css'
+                    'build/css/vender.css': 'styles/vender/**/*.css',
+                    'build/css/fonts.css': 'styles/fonts/**/*.css'
                 }
             }
         },
@@ -122,6 +123,7 @@ module.exports = function(grunt) {
             }
         },
         clean: {
+            build: ['build/'],
             release: ['build/', 'dist/']
         },
         compress: {
@@ -163,7 +165,7 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('default', ['newer:babel', 'sass', 'newer:copy:dev', 'shell:electron', 'watchChokidar']);
+    grunt.registerTask('default', ['clean:build', 'newer:babel', 'sass', 'newer:copy:dev', 'shell:electron', 'watchChokidar']);
 
     grunt.registerTask('run', ['newer:babel', 'shell:electron', 'watchChokidar']);
 
