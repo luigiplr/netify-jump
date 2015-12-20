@@ -9,6 +9,8 @@ import yargs from 'yargs';
 import tray from './tray';
 
 const args = yargs(process.argv.slice(1)).wrap(100).argv;
+var minimzeInfoShown = false;
+
 
 app.on('ready', () => {
     const screenSize = require('screen').getPrimaryDisplay().workAreaSize;
@@ -25,6 +27,15 @@ app.on('ready', () => {
         frame: false,
         show: false
     });
+
+    var appIcon = tray({
+        close: app.quit,
+        show: () => {
+            mainWindow.show();
+            mainWindow.focus();
+        }
+    });
+
 
     if (args.dev) {
         mainWindow.show();
@@ -64,6 +75,13 @@ app.on('ready', () => {
 
     ipcMain.on('app:minimize', () => {
         mainWindow.hide();
+        if (!minimzeInfoShown) {
+            minimzeInfoShown = true;
+            appIcon.displayBalloon({
+                title: 'Netify Jump has been minimized to tray',
+                content: 'Netify Jump is still running and can be restored by clicking its tray icon.'
+            });
+        }
     });
 
     ipcMain.on('app:toggleDevTools', () => {
@@ -74,14 +92,6 @@ app.on('ready', () => {
     });
 
     ipcMain.on('app:close', app.quit);
-
-    tray({
-        close: app.quit,
-        show: () => {
-            mainWindow.show();
-            mainWindow.focus();
-        }
-    })
 
 });
 
