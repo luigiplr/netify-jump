@@ -124,12 +124,13 @@ module.exports = function(grunt) {
         },
         clean: {
             build: ['build/'],
-            release: ['build/', 'dist/']
+            dist: ['dist/'],
+            release: ['release/']
         },
         compress: {
             windows: {
                 options: {
-                    archive: './dist/' + BASENAME + '-' + packagejson.version + '-Windows-' + arch + '.zip',
+                    archive: './release/' + BASENAME + '-' + packagejson.version + '-Windows-' + arch + '.zip',
                     mode: 'zip'
                 },
                 files: [{
@@ -170,7 +171,7 @@ module.exports = function(grunt) {
     grunt.registerTask('run', ['newer:babel', 'shell:electron', 'watchChokidar']);
 
     if (process.platform === 'win32') {
-        grunt.registerTask('release', ['clean:release', 'babel', 'sass', 'copy:release', 'npm-command:release', 'electron:windows', 'compress:windows']);
+        grunt.registerTask('release', ['clean:build', 'clean:dist', 'babel', 'sass', 'copy:release', 'npm-command:release', 'electron:windows', 'compress:windows']);
     }
 
     process.on('SIGINT', function() {
