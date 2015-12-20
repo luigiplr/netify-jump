@@ -1,5 +1,6 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
+import _ from 'lodash';
 import {
     dialog
 }
@@ -27,8 +28,8 @@ default React.createClass({
             hotspot: NetworkStore.getState().hotspot,
             enabling: NetworkStore.getState().enabling,
             disabling: NetworkStore.getState().disabling,
-            passwordOK: !((localStorage.getItem('hotspot-key') || '').length < 8),
-            SSIDOK: !((localStorage.getItem('hotspot-ssid') || 'Netify Jump Hotspot').length < 1)
+            passwordOK: ((localStorage.getItem('hotspot-key') || '').length > 7),
+            SSIDOK: ((localStorage.getItem('hotspot-ssid') || 'Netify Jump Hotspot').length > 0)
         };
     },
 
@@ -37,7 +38,7 @@ default React.createClass({
     },
 
     componentDidMount() {
-        NetworkActions.settingsOK(this.state.passwordOK && this.state.SSIDOK);
+        NetworkActions.settingsOK(((localStorage.getItem('hotspot-key') || '').length > 7) && ((localStorage.getItem('hotspot-ssid') || 'Netify Jump Hotspot').length > 0));
     },
 
     componentWillUnmount() {
@@ -96,20 +97,21 @@ default React.createClass({
     },
 
     validate(type){
+        _.defer(()=>{
         switch(type) {
             case 'password':
                 this.setState({
-                    passwordOK: !(this.refs['hotspot-key'].value.length < 8)
+                    passwordOK: (this.refs['hotspot-key'].value.length > 7)
                 });
                 break;
             case 'ssid':
                 this.setState({
-                    SSIDOK: !(this.refs['hotspot-ssid'].value.length < 1)
+                    SSIDOK: (this.refs['hotspot-ssid'].value.length > 0)
                 });
                 break;
         }
-
         NetworkActions.settingsOK((this.state.passwordOK && this.state.SSIDOK));
+    })
     },
 
     render() {
@@ -133,11 +135,11 @@ default React.createClass({
 
                     <p className="input" >Hotspot SSID:</p>
 
-                    <input ref="hotspot-ssid" onChange={this.validate.bind(this,'ssid')} defaultValue={localStorage.getItem('hotspot-ssid') || 'Netify Jump Hotspot'} className={this.state.SSIDOK ? '' : 'error'} />
+                    <input ref="hotspot-ssid" onInput={this.validate.bind(this,'ssid')} defaultValue={localStorage.getItem('hotspot-ssid') || 'Netify Jump Hotspot'} className={this.state.SSIDOK ? '' : 'error'} />
                     <div className="sep"/>
 
                     <p className="input" >Hotspot Password:</p>
-                    <input ref="hotspot-key" onChange={this.validate.bind(this,'password')} defaultValue={localStorage.getItem('hotspot-key') || ''}  className={this.state.passwordOK ? '' : 'error'}  type="password" />
+                    <input ref="hotspot-key" onInput={this.validate.bind(this,'password')} defaultValue={localStorage.getItem('hotspot-key') || ''}  className={this.state.passwordOK ? '' : 'error'}  type="password" />
                     <div className="sep"/>
                 </div>
 
