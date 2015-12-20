@@ -16,7 +16,7 @@ export
 default React.createClass({
 
     mixins: [PureRenderMixin],
-    
+
     getInitialState() {
         return {
             online: NetworkStore.getState().online,
@@ -48,7 +48,6 @@ default React.createClass({
                     NetworkActions.refreshHotspot();
                 }
             });
-
         }
     },
     render() {

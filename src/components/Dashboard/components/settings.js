@@ -98,20 +98,20 @@ default React.createClass({
 
     validate(type){
         _.defer(()=>{
-        switch(type) {
-            case 'password':
-                this.setState({
-                    passwordOK: (this.refs['hotspot-key'].value.length > 7)
-                });
-                break;
-            case 'ssid':
-                this.setState({
-                    SSIDOK: (this.refs['hotspot-ssid'].value.length > 0)
-                });
-                break;
-        }
-        NetworkActions.settingsOK((this.state.passwordOK && this.state.SSIDOK));
-    })
+            switch(type) {
+                case 'password':
+                    this.setState({
+                        passwordOK: (this.refs['hotspot-key'].value.length > 7)
+                    });
+                    break;
+                case 'ssid':
+                    this.setState({
+                        SSIDOK: (this.refs['hotspot-ssid'].value.length > 0)
+                    });
+                    break;
+            }
+            NetworkActions.settingsOK((this.state.passwordOK && this.state.SSIDOK));
+        });
     },
 
     render() {
