@@ -6,6 +6,7 @@ import {
 }
 from 'electron';
 import yargs from 'yargs';
+import tray from './tray';
 
 const args = yargs(process.argv.slice(1)).wrap(100).argv;
 
@@ -32,7 +33,6 @@ app.on('ready', () => {
         console.info('Dev Mode Active: Developer Tools Enabled.')
     }
 
-    mainWindow.setMenu(null);
 
     mainWindow.loadURL(path.normalize('file://' + path.join(__dirname, '../index.html')));
 
@@ -52,9 +52,7 @@ app.on('ready', () => {
         mainWindow.focus();
     });
 
-    mainWindow.on('close', () => {
-        app.quit();
-    });
+    mainWindow.on('close', app.quit);
 
     ipcMain.on('app:get:maximized', (event) => {
         event.returnValue = mainWindow.isMaximized();
@@ -65,7 +63,7 @@ app.on('ready', () => {
     });
 
     ipcMain.on('app:minimize', () => {
-        mainWindow.minimize();
+        mainWindow.hide();
     });
 
     ipcMain.on('app:toggleDevTools', () => {
@@ -75,13 +73,17 @@ app.on('ready', () => {
         console.info('Developer Tools Toggled.');
     });
 
-    ipcMain.on('app:close', () => {
-        app.quit();
-    });
+    ipcMain.on('app:close', app.quit);
+
+    tray({
+        close: app.quit,
+        show: () => {
+            mainWindow.show();
+            mainWindow.focus();
+        }
+    })
 
 });
 
 
-app.on('window-all-closed', ()=>{
-    app.quit();
-});
+app.on('window-all-closed', app.quit);
