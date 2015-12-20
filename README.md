@@ -19,8 +19,8 @@ I feel software such as this should not require large license fees & paid subscr
 
 ## Screenshots
 
-<img src="preview/UI_preview.png" alt="Dashboard" width="30%"/>
-<img src="preview/UI_preview_active.png" alt="Dashboard" width="30%"/>
+<img src="preview/UI_preview.png" alt="Dashboard" width="34%"/>
+<img src="preview/UI_preview_active.png" alt="Dashboard" width="34%"/>
 <img src="preview/client_android_crop.png" alt="Dashboard" width="30%" height="30%"/>
 
 ## Where's the beef!
