@@ -24,7 +24,7 @@
     "is-online": "^5.0.1",
     "lodash": "^3.10.1",
     "needle": "^0.11.0",
-    "node-hotspot": "0.1.3",
+    "node-hotspot": "0.1.7",
     "node-notifier": "^4.4.0",
     "node-uuid": "^1.4.7",
     "react": "^0.14.3",
