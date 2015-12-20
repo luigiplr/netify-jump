@@ -12,7 +12,7 @@ localStorage.setItem('ga-user-id', USER_ID);
 
 class GAActions {
     send(path) {
-        ga.pageview('/app/' + path).send();
+        ga.pageview('app/' + path).send();
     }
 
     event(event = []) {
