@@ -52,6 +52,7 @@
     "grunt-contrib-watch-chokidar": "^1.0.0",
     "grunt-electron": "^2.0.1",
     "grunt-newer": "^1.1.1",
+    "grunt-npm-command": "^0.1.0",
     "grunt-sass": "^1.1.0",
     "grunt-shell": "^1.1.2",
     "grunt-shell-spawn": "^0.3.10",

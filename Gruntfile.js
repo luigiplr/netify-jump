@@ -3,14 +3,16 @@ var execFile = require('child_process').execFile;
 var packagejson = require('./package.json');
 var electron = require('electron-prebuilt');
 
+
+
 module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);
     var target = grunt.option('target') || 'development';
 
     var BASENAME = 'Netify Jump';
     var arch = grunt.option('arch') ? grunt.option('arch') : 'ia32';
-
-
+    var env = process.env;
+    env.NODE_ENV = 'development';
 
     console.log(' ');
     console.log('Compiling For:', (process.platform === 'win32') ? 'Windows' : 'Mac', arch);
@@ -49,13 +51,6 @@ module.exports = function(grunt) {
                     cwd: 'fonts/',
                     src: ['**/*'],
                     dest: 'build/fonts/'
-                }, {
-                    cwd: 'node_modules/',
-                    src: Object.keys(packagejson.dependencies).map(function(dep) {
-                        return dep + '/**/*';
-                    }),
-                    dest: 'build/node_modules/',
-                    expand: true
                 }]
             },
             release: {
@@ -74,21 +69,6 @@ module.exports = function(grunt) {
                     cwd: 'fonts/',
                     src: ['**/*'],
                     dest: 'build/fonts/'
-                }, {
-                    cwd: 'node_modules/',
-                    src: Object.keys(packagejson.dependencies).map(function(dep) {
-                        return dep + '/**/*';
-                    }),
-                    dest: 'build/node_modules/',
-                    expand: true
-                }]
-            },
-            releaseWin: {
-                files: [{
-                    expand: true,
-                    cwd: 'util/images/',
-                    src: ['icon.ico', 'icon.png'],
-                    dest: 'dist/<%= BASENAME %>-win32-ia32/resources/'
                 }]
             }
         },
@@ -127,8 +107,17 @@ module.exports = function(grunt) {
                 options: {
                     async: true,
                     execOptions: {
-                        cwd: 'build'
+                        cwd: 'build',
+                        env: env
                     }
+                }
+            }
+        },
+        'npm-command': {
+            release: {
+                options: {
+                    cwd: 'build/',
+                    args: ['--production', '--no-optional']
                 }
             }
         },
@@ -178,9 +167,8 @@ module.exports = function(grunt) {
 
     grunt.registerTask('run', ['newer:babel', 'shell:electron', 'watchChokidar']);
 
-
     if (process.platform === 'win32') {
-        grunt.registerTask('release', ['clean:release', 'babel', 'sass', 'copy:release', 'electron:windows', 'copy:releaseWin', 'compress:windows']);
+        grunt.registerTask('release', ['clean:release', 'babel', 'sass', 'copy:release', 'npm-command:release', 'electron:windows', 'compress:windows']);
     }
 
     process.on('SIGINT', function() {
