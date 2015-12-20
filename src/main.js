@@ -4,7 +4,7 @@ import Router from 'react-router';
 import yargs from 'yargs';
 import webUtil from './js/utils/webUtil';
 import routes from './js/routes';
-
+import saveCookies from 'electron-cookies';
 
 webUtil.disableGlobalBackspace();
 
