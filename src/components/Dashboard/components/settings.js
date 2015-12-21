@@ -116,55 +116,54 @@ default React.createClass({
 
         var running = (this.state.hotspot.Status === 'Started') ? true : false;
 
-        return ( < div className = "section"
-            style = {
-                {
-                    marginTop: '0px',
-                    height: '15px',
-                    width: '300px',
-                    right: '245px'
-                }
-            } >
-            <h2>Settings</h2>
+        return ( 
+            <div className = "section" style={{marginTop: '0px',height: '15px',width: '300px',right: '245px'}}>
+                <h2>Settings</h2>
 
-            < div className = "settings" >
+                <div className="settings">
 
-            <div className="sep"/> < span > Hotspot Enabled < /span>
+                    <div className="sep"/>
 
-                    <div className="toggler">
-                        <input onClick={this.handelToggle} ref="hotspot-enabled" checked={((this.state.enabling && !this.state.disabling) ? true :((this.state.disabling) ? false : running))} type="checkbox" id="hotspot" className="toggle" style={{display:'none'}} / >
-            <label htmlFor="hotspot" className="lbl"/> < /div>
-                    <div className="sep"/ >
+                    <span>Hotspot Enabled</span>
 
-            <p className="input" >Hotspot SSID:</p>
+                    <div className = "toggler">
+                        <input onClick={this.handelToggle} ref="hotspot-enabled" checked={((this.state.enabling && !this.state.disabling) ? true :((this.state.disabling) ? false : running))} type="checkbox" id="hotspot" className="toggle" style={{display:'none'}} /> 
+                        <label htmlFor="hotspot" className = "lbl"/> 
+                    </div> 
 
-            < input ref = "hotspot-ssid"
-            onInput = {
-                this.validate.bind(this, 'ssid')
-            }
-            defaultValue = {
-                localStorage.getItem('hotspot-ssid') || 'Netify Jump Hotspot'
-            }
-            className = {
-                this.state.SSIDOK ? '' : 'error'
-            }
-            />
-                    <div className="sep"/ >
+                    <div className="sep" />
 
-            <p className="input" >Hotspot Password:</p> < input ref = "hotspot-key"
-            onInput = {
-                this.validate.bind(this, 'password')
-            }
-            defaultValue = {
-                localStorage.getItem('hotspot-key') || ''
-            }
-            className = {
-                this.state.passwordOK ? '' : 'error'
-            }
-            type = "password" / >
-            <div className="sep"/> < /div>
+                    <p className="input">Hotspot SSID:</p>
 
-            </div >
+                    <input ref = "hotspot-ssid"
+                    onInput = {
+                        this.validate.bind(this, 'ssid')
+                    }
+                    defaultValue = {
+                        localStorage.getItem('hotspot-ssid') || 'Netify Jump Hotspot'
+                    }
+                    className = {
+                        this.state.SSIDOK ? '' : 'error'
+                    } /> 
+
+                    <div className = "sep" />
+
+                    <p className="input" >Hotspot Password:</p> < input ref = "hotspot-key"
+                    onInput = {
+                        this.validate.bind(this, 'password')
+                    }
+                    defaultValue = {
+                        localStorage.getItem('hotspot-key') || ''
+                    }
+                    className = {
+                        this.state.passwordOK ? '' : 'error'
+                    }
+                    type = "password" / >
+                    <div className="sep"/>
+
+                </div>
+
+            </div>
         );
     }
 });
