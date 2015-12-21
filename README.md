@@ -19,8 +19,10 @@ I feel software such as this should not require large license fees & paid subscr
 
 ### Requirements
 
-Netify Jump requires a computer running Windows 7 or above with a wifi adaptor and/or dongle. <br>
+ - PC running Windows 7 or above. <br>
 Mac & Linux support is in the works and coming soon!
+ - WiFi adaptor and/or dongle.
+ - English set as system language (alternative language support in next release)
 
 ### Screenshots
 
@@ -58,3 +60,6 @@ Running `npm start` will download and install [Electron](http://electron.atom.io
 ## Copyright and License
 
 Code released under the [GPLv3](LICENSE).
+
+[![forthebadge](http://forthebadge.com/images/badges/fuck-it-ship-it.svg)](http://forthebadge.com)
+[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
