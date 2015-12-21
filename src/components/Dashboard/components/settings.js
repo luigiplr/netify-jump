@@ -112,6 +112,13 @@ default React.createClass({
         });
     },
 
+    handelShowKey(show){
+        if(show)
+            this.refs['hotspot-key'].type = 'text';
+        else
+            this.refs['hotspot-key'].type = 'password';
+    },
+
     render() {
 
         var running = (this.state.hotspot.Status === 'Started') ? true : false;
@@ -135,30 +142,13 @@ default React.createClass({
 
                     <p className="input">Hotspot SSID:</p>
 
-                    <input ref = "hotspot-ssid"
-                    onInput = {
-                        this.validate.bind(this, 'ssid')
-                    }
-                    defaultValue = {
-                        localStorage.getItem('hotspot-ssid') || 'Netify Jump Hotspot'
-                    }
-                    className = {
-                        this.state.SSIDOK ? '' : 'error'
-                    } /> 
+                    <input ref="hotspot-ssid" onInput={this.validate.bind(this, 'ssid')} defaultValue={localStorage.getItem('hotspot-ssid') || 'Netify Jump Hotspot'} className={this.state.SSIDOK ? '' : 'error'} /> 
 
                     <div className = "sep" />
 
-                    <p className="input" >Hotspot Password:</p> < input ref = "hotspot-key"
-                    onInput = {
-                        this.validate.bind(this, 'password')
-                    }
-                    defaultValue = {
-                        localStorage.getItem('hotspot-key') || ''
-                    }
-                    className = {
-                        this.state.passwordOK ? '' : 'error'
-                    }
-                    type = "password" / >
+                    <p className="input" >Hotspot Password:</p> 
+                    <input ref="hotspot-key" onInput={this.validate.bind(this, 'password')} defaultValue={localStorage.getItem('hotspot-key') || ''} className={this.state.passwordOK ? '' : 'error'} type="password" />
+                    <i onMouseDown={this.handelShowKey.bind(this, true)} onMouseOut={this.handelShowKey.bind(this, false)} onMouseUp={this.handelShowKey.bind(this, false)} className="ion-eye key-show" />
                     <div className="sep"/>
 
                 </div>
