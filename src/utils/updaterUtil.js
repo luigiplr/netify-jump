@@ -64,7 +64,6 @@ const download = (url, filename, size, version) => {
             updaterActions.updateAvailable(outPath);
             notifyUpdate(outPath, version);
         });
-
 }
 
 

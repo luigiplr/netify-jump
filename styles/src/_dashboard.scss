@@ -414,4 +414,10 @@
     font-size: 18px;
     z-index: 2;
     cursor: pointer;
+    transition: opacity 50ms ease-in-out;
+}
+
+
+.main .section .settings .key-show:hover {
+    opacity: 0.7;
 }
