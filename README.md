@@ -19,7 +19,7 @@ I feel software such as this should not require large license fees & paid subscr
 
 ### Requirements
 
- - PC running Windows 7 or above. <br>
+ - PC running Windows 8.1 or above. <br>
 Mac & Linux support is in the works and coming soon!
  - WiFi adaptor and/or dongle.
  - English set as system language (alternative language support in next release)
