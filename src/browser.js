@@ -1,5 +1,6 @@
 import app from 'app';
 import BrowserWindow from 'browser-window';
+import rollbar from './rollbar';
 import path from 'path';
 import {
     ipcMain
@@ -7,6 +8,9 @@ import {
 from 'electron';
 import yargs from 'yargs';
 import tray from './tray';
+
+process.on('uncaughtException', rollbar);
+
 
 const args = yargs(process.argv.slice(1)).wrap(100).argv;
 var minimzeInfoShown = false;
