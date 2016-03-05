@@ -8,34 +8,24 @@ import _ from 'lodash';
 import url from 'url';
 import notifier from 'node-notifier';
 import analyticsActions from '../actions/analyticsActions';
-import {
-    app
-}
-from 'remote';
-import {
-    ipcRenderer
-}
-from 'electron';
-import {
-    version
-}
-from '../../package.json';
+import { app } from 'remote';
+import { ipcRenderer } from 'electron';
+import { version } from '../../package.json';
 import updaterActions from '../actions/updateActions';
 var tryedAgain = false;
 
 
-const appUpdateDir = path.join(app.getPath('userData'), 'update_cache');
+const appUpdateDir = path.join(app.getPath('userData'), 'update_cache')
 
 
-if (!fs.existsSync(appUpdateDir))
-    fs.mkdirSync(appUpdateDir);
+if (!fs.existsSync(appUpdateDir)) fs.mkdirSync(appUpdateDir)
 
-const download = (url, filename, size, version) => {
-    var outPath = path.join(appUpdateDir, filename);
+
+function download(url, filename, size, version) {
+    const outPath = path.join(appUpdateDir, filename);
 
     fs.readdirSync(appUpdateDir).filter(file => {
-        if (file !== filename)
-            fs.unlink(path.join(appUpdateDir, file))
+        if (file !== filename) fs.unlink(path.join(appUpdateDir, file))
     });
 
     try {
@@ -48,28 +38,24 @@ const download = (url, filename, size, version) => {
     }
 
     progress(request(url), {
-        throttle: 2000,
-        delay: 1000
-    })
-        .on('progress', state => {
-            console.log('Update download percent:', state.percent + '%', '\nETA:', state.eta.toString(), 'seconds');
+            throttle: 2000,
+            delay: 1000
         })
-        .on('error', err => {
-            console.error('Error downloading update!', err);
-        })
+        .on('progress', state => console.log(`Update download percent: ${state.percent}% \nETA: ${state.eta.toString()} seconds`))
+        .on('error', err => console.error(`Error downloading update! ${err}`))
         .pipe(fs.createWriteStream(outPath))
         .on('finish', () => {
-            console.info('Update successfully downloaded to', outPath);
+            console.info(`Update successfully downloaded to ${outPath}`);
 
             updaterActions.updateAvailable(outPath);
             notifyUpdate(outPath, version);
         });
+
 }
 
-
-const notifyUpdate = (updatePath, version) => {
+function notifyUpdate(updatePath, version) {
     notifier.notify({
-        title: 'Netify Jump ' + version + ' update available',
+        title: `Netify Jump ${version} update available`,
         message: 'Click to install',
         icon: path.join(__dirname, '../../images/icon.png'),
         sound: true,
@@ -79,7 +65,7 @@ const notifyUpdate = (updatePath, version) => {
     notifier.on('click', () => installUpdate(updatePath));
 }
 
-const installUpdate = updatePath => {
+function installUpdate(updatePath) {
     analyticsActions.event(['update', 'installed']);
     switch (process.platform) {
         case 'win32':
@@ -90,51 +76,50 @@ const installUpdate = updatePath => {
     }
 }
 
-const getJson = url => {
-    return new Promise((resolve, reject) => {
-        request(url, {
+
+function getJson(url) {
+    return new Promise((resolve, reject) => request(url, {
             json: true,
             headers: {
-                'User-Agent': 'Netify Jump v.' + version
+                'User-Agent': `Netify Jump v. ${version}`
             }
         }, (error, response, body) => {
             if (!error && response.statusCode == 200)
                 resolve(body)
             else
-                reject('something went Very Wong:' + error + '\nCODE:' + response.statusCode + '\nBODY:' + JSON.stringify(body));
-        });
+                reject(`something went Very Wong: ${error} \nCODE: ${response.statusCode} \nBODY: ${JSON.stringify(body)}`);
+        })
     })
 }
 
-const exec = (execPath, args = [], options = {}) => {
+
+function exec(execPath, args = [], options = {}) {
     child_process.exec(execPath + ' ' + args.join(' '), options, (error, stdout, stderr) => {
-        if (error) {
-            console.error(stderr);
-        }
-        console.log(stdout);
-    });
+        if (error) return console.error(stderr)
+        console.log(stdout)
+    })
 }
 
-module.exports = {
-    check(annon) {
 
-        if (process.env.NODE_ENV === 'development')
-            return console.info('Development mode active, not checking for updates');
-        else
-            console.info('Checking for updates for client v.' + version);
+function check(annon) {
+    if (process.env.NODE_ENV === 'development')
+        return console.info('Development mode active, not checking for updates');
+    else
+        console.info(`Checking for updates for client v. ${version}`)
 
-        analyticsActions.event(['update', 'check', version]);
-        getJson('https://api.github.com/repos/luigiplr/netify-jump/releases/latest' + (annon ? '' : '?client_id=1ea858d6adf0ab363200&client_secret=e027441f3392b790aa857d2267b25684af5370e6'))
-            .then(json => {
+    analyticsActions.event(['update', 'check', version]);
 
-                if (version === json.tag_name || json.prerelease)
-                    return console.info('No new updates available');
+    getJson(`https://api.github.com/repos/luigiplr/netify-jump/releases/latest${(annon ? '' : '?client_id=1ea858d6adf0ab363200&client_secret=e027441f3392b790aa857d2267b25684af5370e6')}`)
+        .then(json => {
 
-                var candidate = false;
+            if (version === json.tag_name || json.prerelease)
+                return console.info('No new updates available');
 
-                _.forEach(json.assets, asset => {
-                    let assetParsed = path.parse(asset.name).name.split('-');
-                    if (_.isEqual({
+            var candidate = false;
+
+            _.forEach(json.assets, asset => {
+                let assetParsed = path.parse(asset.name).name.split('-');
+                if (_.isEqual({
                         platform: (assetParsed[2].toLowerCase() === ('windows' || 'win32')) ? 'win32' : 'darwin',
                         arch: assetParsed[3],
                         installer: (path.parse(asset.name).ext === ('.exe' || '.dmg')) ? true : false
@@ -143,22 +128,27 @@ module.exports = {
                         arch: process.arch,
                         installer: true
                     }))
-                        candidate = asset;
-                });
+                    candidate = asset;
+            });
 
-                if (candidate) {
-                    console.info('New update available v.' + json.tag_name);
-                    download(candidate.browser_download_url, candidate.name, candidate.size, 'v.' + json.tag_name);
-                }
+            if (candidate) {
+                console.info(`New update available v. ${json.tag_name}`)
+                download(candidate.browser_download_url, candidate.name, candidate.size, 'v.' + json.tag_name);
+            }
 
-            })
-            .catch(err => {
-                console.log(err);
-                if (!tryedAgain) {
-                    tryedAgain = true;
-                    _.delay(this.check.bind(this, true), 1000)
-                }
-            })
-    },
+        })
+        .catch(err => {
+            console.log(err);
+            if (!tryedAgain) {
+                tryedAgain = true;
+                _.delay(this.check.bind(this, true), 1000)
+            }
+        })
+}
+
+
+
+export default {
     install: installUpdate
+    check
 }
