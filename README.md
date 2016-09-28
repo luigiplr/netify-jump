@@ -2,8 +2,7 @@
 
 [![Dependency Status](https://david-dm.org/luigiplr/netify-jump.svg)](https://david-dm.org/luigiplr/netify-jump) 
 [![devDependency Status](https://david-dm.org/luigiplr/netify-jump/dev-status.svg)](https://david-dm.org/luigiplr/netify-jump#info=devDependencies) 
-[![license](https://img.shields.io/badge/license-GPLv3-brightgreen.svg)](LICENSE) 
-[![donate](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.me/luigipoole) 
+[![license](https://img.shields.io/badge/license-GPLv3-brightgreen.svg)](LICENSE)
 
 
 
